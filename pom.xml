@@ -42,6 +42,62 @@
 	<dependencies>
 		<dependency>
 			<groupId>
+				com.squareup.retrofit2
+			</groupId>
+
+			<artifactId>
+				retrofit
+			</artifactId>
+
+			<version>
+				2.5.0
+			</version>
+		</dependency>
+
+		<dependency>
+			<groupId>
+				com.squareup.retrofit2
+			</groupId>
+
+			<artifactId>
+				converter-gson
+			</artifactId>
+
+			<version>
+				2.5.0
+			</version>
+		</dependency>
+
+		<dependency>
+			<groupId>
+				com.squareup.okhttp3
+			</groupId>
+
+			<artifactId>
+				logging-interceptor
+			</artifactId>
+
+			<version>
+				3.12.0
+			</version>
+		</dependency>
+
+		<dependency>
+			<groupId>
+				com.fasterxml.jackson.core
+			</groupId>
+
+			<artifactId>
+				jackson-annotations
+			</artifactId>
+
+			<version>
+				2.9.7
+			</version>
+		</dependency>
+
+		<dependency>
+			<groupId>
 				junit
 			</groupId>
 
@@ -125,6 +181,46 @@
 						<goals>
 							<goal>
 								check
+							</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>
+					maven-assembly-plugin
+				</artifactId>
+
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>
+								fediverse.writefreely.api.WriteFreelyAPI
+							</mainClass>
+						</manifest>
+					</archive>
+
+					<descriptorRefs>
+						<descriptorRef>
+							jar-with-dependencies
+						</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+
+				<executions>
+					<execution>
+						<id>
+							make-assembly
+						</id> <!-- this is used for inheritance merges -->
+
+						<phase>
+							package
+						</phase> <!-- bind to the packaging phase -->
+
+						<goals>
+							<goal>
+								single
 							</goal>
 						</goals>
 					</execution>
