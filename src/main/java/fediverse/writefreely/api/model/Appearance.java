@@ -19,12 +19,10 @@ public enum Appearance {
 	                         Appearance> appearances = new HashMap<String,
 	                                                               Appearance>();
 	private        final String[]            aliases;
-	private              String            origValue;
 
 	static {
 		for(final Appearance app : Appearance.values()) {
 			for(final String alias : app.aliases) {
-				app.setFont(alias);
 				appearances.put(alias, app);
 			}
 		}
@@ -35,7 +33,7 @@ public enum Appearance {
 	}
 
 	public final String getFont() {
-		return this.origValue;
+		return this.aliases[0];
 	}
 
 	public static Appearance findByFont(final String appearance) {
@@ -46,9 +44,5 @@ public enum Appearance {
 		} else {
 			return app;
 		}
-	}
-
-	private void setFont(final String appearance) {
-		this.origValue = appearance;
 	}
 }
