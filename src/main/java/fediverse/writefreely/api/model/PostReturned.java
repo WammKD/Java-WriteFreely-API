@@ -4,7 +4,7 @@ import java.time.ZonedDateTime;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Post {
+public class PostReturned {
 	private final String        id;
 	private final String        slug;
 	private final String        token;
@@ -18,48 +18,17 @@ public class Post {
 	private final Long          views;
 
 	@JsonCreator
-	public Post(@JsonProperty("body") final String body) {
-		this.id         = null;
-		this.slug       = null;
-		this.token      = null;
-		this.appearance = null;
-		this.language   = null;
-		this.rtl        = null;
-		this.created    = null;
-		this.title      = null;
-		this.body       = body;
-		this.tags       = new String[] {};
-		this.views      = null;
-	}
-
-	@JsonCreator
-	public Post(@JsonProperty("title") final String title,
-	            @JsonProperty("body")  final String body) {
-		this.id         = null;
-		this.slug       = null;
-		this.token      = null;
-		this.appearance = null;
-		this.language   = null;
-		this.rtl        = null;
-		this.created    = null;
-		this.title      = title;
-		this.body       = body;
-		this.tags       = new String[] {};
-		this.views      = null;
-	}
-
-	@JsonCreator
-	public Post(@JsonProperty("id")         final String        id,
-	            @JsonProperty("slug")       final String        slug,
-	            @JsonProperty("token")      final String        token,
-	            @JsonProperty("appearance") final Appearance    appearance,
-	            @JsonProperty("language")   final String        language,
-	            @JsonProperty("rtl")        final boolean       rtl,
-	            @JsonProperty("created")    final ZonedDateTime created,
-	            @JsonProperty("title")      final String        title,
-	            @JsonProperty("body")       final String        body,
-	            @JsonProperty("tags")       final String[]      tags,
-	            @JsonProperty("views")      final Long          views) {
+	public PostReturned(@JsonProperty("id")         final String        id,
+	                    @JsonProperty("slug")       final String        slug,
+	                    @JsonProperty("token")      final String        token,
+	                    @JsonProperty("appearance") final Appearance    appearance,
+	                    @JsonProperty("language")   final String        language,
+	                    @JsonProperty("rtl")        final boolean       rtl,
+	                    @JsonProperty("created")    final ZonedDateTime created,
+	                    @JsonProperty("title")      final String        title,
+	                    @JsonProperty("body")       final String        body,
+	                    @JsonProperty("tags")       final String[]      tags,
+	                    @JsonProperty("views")      final Long          views) {
 		this.id         = id;
 		this.slug       = slug;
 		this.token      = token;

@@ -2,7 +2,8 @@ package fediverse.writefreely.api;
 
 import fediverse.writefreely.api.model.Auth;
 import fediverse.writefreely.api.model.Collection;
-import fediverse.writefreely.api.model.Post;
+import fediverse.writefreely.api.model.PostReturned;
+import fediverse.writefreely.api.model.PostSent;
 import fediverse.writefreely.api.model.ResponseWrapper;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -17,14 +18,14 @@ interface Endpoints {
 	static final String COLLECTION    = "api/collections/{collectionAlias}";
 
 	@POST(Endpoints.AUTH)
-	Call<ResponseWrapper<Auth>>       getToken();
+	Call<ResponseWrapper<Auth>>         getToken();
 
 	@POST(Endpoints.POST_PUBLISH)
-	Call<ResponseWrapper<Post>>       publishPost(@Body Post body);
+	Call<ResponseWrapper<PostReturned>> publishPost(@Body PostSent body);
 
 	@GET(Endpoints.POST_RETRIEVE)
-	Call<ResponseWrapper<Post>>       retrievePost(@Path("postID") String pID);
+	Call<ResponseWrapper<PostReturned>> retrievePost(@Path("postID") String pID);
 
 	@GET(Endpoints.COLLECTION)
-	Call<ResponseWrapper<Collection>> getCollection(@Path("collectionAlias") String ca);
+	Call<ResponseWrapper<Collection>>   getCollection(@Path("collectionAlias") String ca);
 }
