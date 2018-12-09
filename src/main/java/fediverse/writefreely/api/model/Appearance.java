@@ -15,10 +15,10 @@ public enum Appearance {
 	// Syntax-highlighted monospace
 	 CODE("code");
 
-	private static Map<String,
-	                   Appearance> appearances = new HashMap<String,
-	                                                         Appearance>();
-	private        String[]            aliases;
+	private static       Map<String,
+	                         Appearance> appearances = new HashMap<String,
+	                                                               Appearance>();
+	private        final String[]            aliases;
 
 	static {
 		for(final Appearance app : Appearance.values()) {
