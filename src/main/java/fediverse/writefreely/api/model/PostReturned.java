@@ -8,27 +8,29 @@ public class PostReturned {
 	private final String        id;
 	private final String        slug;
 	private final String        token;
-	private final String        appearance;
+	private final Appearance    appearance;
 	private final String        language;
 	private final Boolean       rtl;
 	private final ZonedDateTime created;
+	private final ZonedDateTime updated;
 	private final String        title;
 	private final String        body;
 	private final String[]      tags;
-	private final Long          views;
+	private final long          views;
 
 	@JsonCreator
 	public PostReturned(@JsonProperty("id")         final String        id,
 	                    @JsonProperty("slug")       final String        slug,
 	                    @JsonProperty("token")      final String        token,
-	                    @JsonProperty("appearance") final String        appearance,
+	                    @JsonProperty("appearance") final Appearance    appearance,
 	                    @JsonProperty("language")   final String        language,
 	                    @JsonProperty("rtl")        final boolean       rtl,
 	                    @JsonProperty("created")    final ZonedDateTime created,
+	                    @JsonProperty("created")    final ZonedDateTime updated,
 	                    @JsonProperty("title")      final String        title,
 	                    @JsonProperty("body")       final String        body,
 	                    @JsonProperty("tags")       final String[]      tags,
-	                    @JsonProperty("views")      final Long          views) {
+	                    @JsonProperty("views")      final long          views) {
 		this.id         = id;
 		this.slug       = slug;
 		this.token      = token;
@@ -36,6 +38,7 @@ public class PostReturned {
 		this.language   = language;
 		this.rtl        = rtl;
 		this.created    = created;
+		this.updated    = updated;
 		this.title      = title;
 		this.body       = body;
 		this.tags       = tags;
@@ -55,19 +58,23 @@ public class PostReturned {
 	}
 
 	public final Appearance    getAppearance() {
-		return Appearance.findByFont(this.appearance);
+		return this.appearance;
 	}
 
 	public final String        getLanguage() {
 		return this.language;
 	}
 
-	public final boolean       getRtl() {
+	public final boolean       isRtL() {
 		return this.rtl;
 	}
 
 	public final ZonedDateTime getCreated() {
 		return this.created;
+	}
+
+	public final ZonedDateTime getUpdated() {
+		return this.updated;
 	}
 
 	public final String        getTitle() {
@@ -82,7 +89,7 @@ public class PostReturned {
 		return this.tags;
 	}
 
-	public final Long          getViews() {
+	public final long          getViews() {
 		return this.views;
 	}
 }
