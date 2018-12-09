@@ -7,19 +7,19 @@ import java.util.Map;
 public enum Appearance {
 	// Sans-serif (Open Sans)
 	@SerializedName("sans")
-	 SANS("sans"),
+	SANS("sans"),
 	// Serif (Lora)
 	@SerializedName("serif")
 	SERIF("serif", "norm"),
 	// Monospace
 	@SerializedName("wrap")
-	 WRAP("wrap"),
+	WRAP("wrap"),
 	// Monospace
 	@SerializedName("mono")
-	 MONO("mono"),
+	MONO("mono"),
 	// Syntax-highlighted monospace
 	@SerializedName("code")
-	 CODE("code");
+	CODE("code");
 
 	private static       Map<String,
 	                         Appearance> appearances = new HashMap<String,
