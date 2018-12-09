@@ -1,18 +1,24 @@
 package fediverse.writefreely.api.model;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.HashMap;
 import java.util.Map;
 
 public enum Appearance {
 	// Sans-serif (Open Sans)
+	@SerializedName("sans")
 	 SANS("sans"),
 	// Serif (Lora)
+	@SerializedName("serif")
 	SERIF("serif", "norm"),
 	// Monospace
+	@SerializedName("wrap")
 	 WRAP("wrap"),
 	// Monospace
+	@SerializedName("mono")
 	 MONO("mono"),
 	// Syntax-highlighted monospace
+	@SerializedName("code")
 	 CODE("code");
 
 	private static       Map<String,
