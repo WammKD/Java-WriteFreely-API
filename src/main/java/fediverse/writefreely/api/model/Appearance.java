@@ -1,7 +1,7 @@
 package fediverse.writefreely.api.model;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 public enum Appearance {
 	// Sans-serif (Open Sans)
@@ -19,10 +19,12 @@ public enum Appearance {
 	                         Appearance> appearances = new HashMap<String,
 	                                                               Appearance>();
 	private        final String[]            aliases;
+	private              String            origValue;
 
 	static {
 		for(final Appearance app : Appearance.values()) {
 			for(final String alias : app.aliases) {
+				app.setFont(alias);
 				appearances.put(alias, app);
 			}
 		}
@@ -33,10 +35,10 @@ public enum Appearance {
 	}
 
 	public final String getFont() {
-		return this.aliases[0];
+		return this.origValue;
 	}
 
-	public static Appearance getByFont(final String appearance) {
+	public static Appearance findByFont(final String appearance) {
 		final Appearance app = appearances.get(appearance);
 
 		if(app == null) {
@@ -44,5 +46,9 @@ public enum Appearance {
 		} else {
 			return app;
 		}
+	}
+
+	private void setFont(final String appearance) {
+		this.origValue = appearance;
 	}
 }

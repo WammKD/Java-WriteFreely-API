@@ -8,7 +8,7 @@ public class PostReturned {
 	private final String        id;
 	private final String        slug;
 	private final String        token;
-	private final Appearance    appearance;
+	private final String        appearance;
 	private final String        language;
 	private final Boolean       rtl;
 	private final ZonedDateTime created;
@@ -21,7 +21,7 @@ public class PostReturned {
 	public PostReturned(@JsonProperty("id")         final String        id,
 	                    @JsonProperty("slug")       final String        slug,
 	                    @JsonProperty("token")      final String        token,
-	                    @JsonProperty("appearance") final Appearance    appearance,
+	                    @JsonProperty("appearance") final String        appearance,
 	                    @JsonProperty("language")   final String        language,
 	                    @JsonProperty("rtl")        final boolean       rtl,
 	                    @JsonProperty("created")    final ZonedDateTime created,
@@ -55,7 +55,7 @@ public class PostReturned {
 	}
 
 	public final Appearance    getAppearance() {
-		return this.appearance;
+		return Appearance.findByFont(this.appearance);
 	}
 
 	public final String        getLanguage() {
