@@ -3,7 +3,7 @@ package fediverse.writefreely.api;
 import fediverse.writefreely.api.model.Auth;
 import fediverse.writefreely.api.model.Collection;
 import fediverse.writefreely.api.model.PostReturned;
-import fediverse.writefreely.api.model.PostSent;
+import fediverse.writefreely.api.model.PostCreated;
 import fediverse.writefreely.api.model.ResponseWrapper;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -21,7 +21,7 @@ interface Endpoints {
 	Call<ResponseWrapper<Auth>>         getToken();
 
 	@POST(Endpoints.POST_PUBLISH)
-	Call<ResponseWrapper<PostReturned>> publishPost(@Body PostSent body);
+	Call<ResponseWrapper<PostReturned>> publishPost(@Body PostCreated body);
 
 	@GET(Endpoints.POST_RETRIEVE)
 	Call<ResponseWrapper<PostReturned>> retrievePost(@Path("postID") String pID);
