@@ -14,7 +14,7 @@ import fediverse.writefreely.api.model.Appearance;
 import fediverse.writefreely.api.model.Collection;
 import fediverse.writefreely.api.model.CrosspostInfo;
 import fediverse.writefreely.api.model.PostReturned;
-import fediverse.writefreely.api.model.PostSent;
+import fediverse.writefreely.api.model.PostCreated;
 import fediverse.writefreely.api.model.ResponseWrapper;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -225,7 +225,7 @@ public class WriteFreelyAPI {
 		                             .create(Endpoints.class);
 	}
 
-	public ResponseWrapper<PostReturned> publishPost(final PostSent post) throws IOException {
+	public ResponseWrapper<PostReturned> publishPost(final PostCreated post) throws IOException {
 		return this.endpoints.publishPost(post).execute().body();
 	}
 
