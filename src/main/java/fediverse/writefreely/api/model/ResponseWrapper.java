@@ -1,7 +1,5 @@
 package fediverse.writefreely.api.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import fediverse.writefreely.api.HTTPstatus;
 
 public class ResponseWrapper<T> {
@@ -9,17 +7,15 @@ public class ResponseWrapper<T> {
 	private final T          data;
 	private final String     errorMsg;
 
-	@JsonCreator
-	public ResponseWrapper(@JsonProperty("code") final int code,
-	                       @JsonProperty("data") final T   data) {
+	public ResponseWrapper(final int code,
+	                       final T   data) {
 		this.code     = HTTPstatus.findByCode(code);
 		this.data     = data;
 		this.errorMsg = null;
 	}
 
-	@JsonCreator
-	public ResponseWrapper(@JsonProperty("code")      final int    code,
-	                       @JsonProperty("error_msg") final String errorMsg) {
+	public ResponseWrapper(final int    code,
+	                       final String errorMsg) {
 		this.code     = HTTPstatus.findByCode(code);
 		this.errorMsg = errorMsg;
 		this.data     = null;

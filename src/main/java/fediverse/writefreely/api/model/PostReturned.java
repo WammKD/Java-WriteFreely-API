@@ -1,8 +1,6 @@
 package fediverse.writefreely.api.model;
 
 import java.time.ZonedDateTime;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PostReturned {
 	private final String        id;
@@ -18,19 +16,18 @@ public class PostReturned {
 	private final String[]      tags;
 	private final long          views;
 
-	@JsonCreator
-	public PostReturned(@JsonProperty("id")         final String        id,
-	                    @JsonProperty("slug")       final String        slug,
-	                    @JsonProperty("token")      final String        token,
-	                    @JsonProperty("appearance") final Appearance    appearance,
-	                    @JsonProperty("language")   final String        language,
-	                    @JsonProperty("rtl")        final boolean       rtl,
-	                    @JsonProperty("created")    final ZonedDateTime created,
-	                    @JsonProperty("created")    final ZonedDateTime updated,
-	                    @JsonProperty("title")      final String        title,
-	                    @JsonProperty("body")       final String        body,
-	                    @JsonProperty("tags")       final String[]      tags,
-	                    @JsonProperty("views")      final long          views) {
+	public PostReturned(final String        id,
+	                    final String        slug,
+	                    final String        token,
+	                    final Appearance    appearance,
+	                    final String        language,
+	                    final boolean       rtl,
+	                    final ZonedDateTime created,
+	                    final ZonedDateTime updated,
+	                    final String        title,
+	                    final String        body,
+	                    final String[]      tags,
+	                    final long          views) {
 		this.id         = id;
 		this.slug       = slug;
 		this.token      = token;
