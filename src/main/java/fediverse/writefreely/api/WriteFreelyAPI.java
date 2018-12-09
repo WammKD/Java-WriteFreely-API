@@ -1,11 +1,19 @@
 package fediverse.writefreely.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import fediverse.writefreely.api.model.Collection;
 import fediverse.writefreely.api.model.ResponseWrapper;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.ZonedDateTime;
 import java.util.logging.Logger;
 import okhttp3.Authenticator;
 import okhttp3.Interceptor.Chain;
@@ -111,6 +119,17 @@ public class WriteFreelyAPI {
 	                                                       };
 	private              String                authToken = "";
 
+	private JsonDeserializer<ZonedDateTime> createJDZDT() {
+		return new JsonDeserializer<ZonedDateTime>() {
+		       	@Override
+		       	public ZonedDateTime deserialize(final JsonElement                json,
+		       	                                 final Type                       type,
+		       	                                 final JsonDeserializationContext context) throws JsonParseException {
+		       		return ZonedDateTime.parse(json.getAsJsonPrimitive().getAsString());
+		       	}
+		       };
+	}
+
 	public WriteFreelyAPI(final String domain)   throws MalformedURLException {
 		this.domain   = new URL(domain);
 		this.username = "";
@@ -121,13 +140,16 @@ public class WriteFreelyAPI {
 		                                                                  .addInterceptor(this.interceptor)
 		                                                                  .addInterceptor(loggingInterceptor)
 		                                                                  .build();
-		final Retrofit               retrofit           = new Retrofit.Builder()
-		                                                              .baseUrl(this.domain.toString())
-		                                                              .client(okHTTPclient)
-		                                                              .addConverterFactory(GsonConverterFactory.create())
-		                                                              .build();
+		final Gson                   gson               = new GsonBuilder().registerTypeAdapter(ZonedDateTime.class,
+		                                                                                        createJDZDT())
+		                                                                   .create();
 
-		this.endpoints = retrofit.create(Endpoints.class);
+		this.endpoints = new Retrofit.Builder()
+		                             .baseUrl(this.domain.toString())
+		                             .client(okHTTPclient)
+		                             .addConverterFactory(GsonConverterFactory.create(gson))
+		                             .build()
+		                             .create(Endpoints.class);
 	}
 
 	public WriteFreelyAPI(final String domain,
@@ -143,13 +165,16 @@ public class WriteFreelyAPI {
 		                                                                  .addInterceptor(loggingInterceptor)
 		                                                                  .authenticator(this.authenticator)
 		                                                                  .build();
-		final Retrofit               retrofit           = new Retrofit.Builder()
-		                                                              .baseUrl(this.domain.toString())
-		                                                              .client(okHTTPclient)
-		                                                              .addConverterFactory(GsonConverterFactory.create())
-		                                                              .build();
+		final Gson                   gson               = new GsonBuilder().registerTypeAdapter(ZonedDateTime.class,
+		                                                                                        createJDZDT())
+		                                                                   .create();
 
-		this.endpoints = retrofit.create(Endpoints.class);
+		this.endpoints = new Retrofit.Builder()
+		                             .baseUrl(this.domain.toString())
+		                             .client(okHTTPclient)
+		                             .addConverterFactory(GsonConverterFactory.create(gson))
+		                             .build()
+		                             .create(Endpoints.class);
 	}
 
 	public ResponseWrapper<Collection> getCollection(final String name) throws IOException {
