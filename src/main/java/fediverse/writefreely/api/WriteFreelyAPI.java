@@ -37,7 +37,7 @@ public class WriteFreelyAPI {
 	                                                       		LOG.finest("Intercepting Request: " +
 	                                                       		           inRequestURLstring);
 
-	                                                       		// Add Heades to request
+	                                                       		// Add Headers to request
 	                                                       		LOG.finest("Adding headers and building.");
 	                                                       		final Request.Builder builder            = inRequest.newBuilder()
 	                                                       		                                                    .addHeader("Content-Type",
