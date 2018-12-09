@@ -8,11 +8,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
 import okhttp3.Authenticator;
-import okhttp3.FormBody;
 import okhttp3.Interceptor.Chain;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -74,10 +75,9 @@ public class WriteFreelyAPI {
 	                                                       		final Request req = new Request.Builder()
 	                                                       		                               .url(domain + Endpoints.AUTH)
 	                                                       		                               .addHeader("Content-Type", APPLICATION_JSON)
-	                                                       		                               .post(new FormBody.Builder()
-	                                                       		                                                 .add("alias", username)
-	                                                       		                                                 .add("pass",  passcode)
-	                                                       		                                                 .build())
+	                                                       		                               .post(RequestBody.create(MediaType.parse(APPLICATION_JSON),
+	                                                       		                                                        "{ \"alias\": " + username + ", " +
+	                                                       		                                                        "   \"pass\": " + passcode + " }"))
 	                                                       		                               .build();
 	                                                       		authToken = new JsonParser().parse(new OkHttpClient().newCall(req)
 	                                                       		                                                     .execute()
