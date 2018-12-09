@@ -209,7 +209,7 @@ public enum HTTPstatus {
 	 *             the httpStatus code
 	 *  @return the HTTPstatus object with a code matching the supplied int
 	 */
-	public static HTTPstatus getByCode(final int httpStatus) {
+	public static HTTPstatus findByCode(final int httpStatus) {
 		for(final HTTPstatus status : HTTPstatus.values()) {
 			if(status.getCode() == httpStatus) {
 				return status;
@@ -228,7 +228,7 @@ public enum HTTPstatus {
 	 *             the String containing the status code to match
 	 *  @return the HTTPstatus for the supplied String
 	 */
-	public static HTTPstatus getByCode(final String httpStatus) {
+	public static HTTPstatus findByCode(final String httpStatus) {
 		final int statusCode;
 
 		try {
@@ -237,7 +237,7 @@ public enum HTTPstatus {
 			return UNKNOWN;
 		}
 
-		return getByCode(statusCode);
+		return findByCode(statusCode);
 	}
 
 	/**
