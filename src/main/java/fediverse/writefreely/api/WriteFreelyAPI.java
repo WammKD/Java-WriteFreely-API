@@ -13,8 +13,9 @@ import com.google.gson.JsonSerializer;
 import fediverse.writefreely.api.model.Appearance;
 import fediverse.writefreely.api.model.Collection;
 import fediverse.writefreely.api.model.CrosspostInfo;
-import fediverse.writefreely.api.model.PostReturned;
 import fediverse.writefreely.api.model.PostCreated;
+import fediverse.writefreely.api.model.PostReturned;
+import fediverse.writefreely.api.model.PostUpdate;
 import fediverse.writefreely.api.model.ResponseWrapper;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -231,6 +232,11 @@ public class WriteFreelyAPI {
 
 	public ResponseWrapper<PostReturned> retrievePost(final String postID) throws IOException {
 		return this.endpoints.retrievePost(postID).execute().body();
+	}
+
+	public ResponseWrapper<PostReturned> updatePost(final String     postID,
+	                                                final PostUpdate post) throws IOException {
+		return this.endpoints.updatePost(postID, post).execute().body();
 	}
 
 	public ResponseWrapper<Collection> getCollection(final String name) throws IOException {

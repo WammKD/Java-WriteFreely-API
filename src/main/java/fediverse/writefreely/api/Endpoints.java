@@ -2,8 +2,9 @@ package fediverse.writefreely.api;
 
 import fediverse.writefreely.api.model.Auth;
 import fediverse.writefreely.api.model.Collection;
-import fediverse.writefreely.api.model.PostReturned;
 import fediverse.writefreely.api.model.PostCreated;
+import fediverse.writefreely.api.model.PostReturned;
+import fediverse.writefreely.api.model.PostUpdate;
 import fediverse.writefreely.api.model.ResponseWrapper;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -25,6 +26,10 @@ interface Endpoints {
 
 	@GET(Endpoints.POST_RETRIEVE)
 	Call<ResponseWrapper<PostReturned>> retrievePost(@Path("postID") String pID);
+
+	@POST(Endpoints.POST_RETRIEVE)
+	Call<ResponseWrapper<PostReturned>> updatePost(@Path("postID") String     pID,
+	                                               @Body           PostUpdate body);
 
 	@GET(Endpoints.COLLECTION)
 	Call<ResponseWrapper<Collection>>   getCollection(@Path("collectionAlias") String ca);
