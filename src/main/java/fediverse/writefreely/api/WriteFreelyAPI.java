@@ -76,8 +76,8 @@ public class WriteFreelyAPI {
 	                                                       		                               .url(domain + Endpoints.AUTH)
 	                                                       		                               .addHeader("Content-Type", APPLICATION_JSON)
 	                                                       		                               .post(RequestBody.create(MediaType.parse(APPLICATION_JSON),
-	                                                       		                                                        "{ \"alias\": " + username + ", " +
-	                                                       		                                                        "   \"pass\": " + passcode + " }"))
+	                                                       		                                                        "{ \"alias\": \"" + username + "\", " +
+	                                                       		                                                        "   \"pass\": \"" + passcode + "\" }"))
 	                                                       		                               .build();
 	                                                       		authToken = new JsonParser().parse(new OkHttpClient().newCall(req)
 	                                                       		                                                     .execute()
