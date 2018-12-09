@@ -7,11 +7,25 @@ public class ResponseWrapper<T> {
 	private final T          data;
 	private final String     errorMsg;
 
+	public ResponseWrapper(final HTTPstatus code,
+	                       final T          data) {
+		this.code     = code;
+		this.data     = data;
+		this.errorMsg = null;
+	}
+
 	public ResponseWrapper(final int code,
 	                       final T   data) {
 		this.code     = HTTPstatus.findByCode(code);
 		this.data     = data;
 		this.errorMsg = null;
+	}
+
+	public ResponseWrapper(final HTTPstatus code,
+	                       final String     errorMsg) {
+		this.code     = code;
+		this.errorMsg = errorMsg;
+		this.data     = null;
 	}
 
 	public ResponseWrapper(final int    code,
