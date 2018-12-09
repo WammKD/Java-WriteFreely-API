@@ -5,10 +5,16 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import fediverse.writefreely.api.model.Appearance;
 import fediverse.writefreely.api.model.Collection;
+import fediverse.writefreely.api.model.CrosspostInfo;
+import fediverse.writefreely.api.model.PostReturned;
+import fediverse.writefreely.api.model.PostSent;
 import fediverse.writefreely.api.model.ResponseWrapper;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -120,6 +126,21 @@ public class WriteFreelyAPI {
 	                                                       };
 	private              String                authToken = "";
 
+	private JsonSerializer<CrosspostInfo> createJSCI() {
+		return new JsonSerializer<CrosspostInfo>() {
+		       	@Override
+		       	public JsonObject serialize(final CrosspostInfo            ci,
+		       	                            final Type                     type,
+		       	                            final JsonSerializationContext context) throws JsonParseException {
+		       		final JsonObject jo = new JsonObject();
+		       		jo.addProperty(ci.getSocialNetwork().getID(),
+		       		               ci.getUsername());
+
+		       		return jo;
+		       	}
+		       };
+	}
+
 	private JsonDeserializer<ZonedDateTime> createJDZDT() {
 		return new JsonDeserializer<ZonedDateTime>() {
 		       	@Override
@@ -166,6 +187,7 @@ public class WriteFreelyAPI {
 		final Gson                   gson               = new GsonBuilder().registerTypeAdapter(ZonedDateTime.class, createJDZDT())
 		                                                                   .registerTypeAdapter(Appearance.class,    createJDA())
 		                                                                   .registerTypeAdapter(HTTPstatus.class,    createJDHS())
+		                                                                   .registerTypeAdapter(CrosspostInfo.class, createJSCI())
 		                                                                   .create();
 
 		this.endpoints = new Retrofit.Builder()
@@ -192,6 +214,7 @@ public class WriteFreelyAPI {
 		final Gson                   gson               = new GsonBuilder().registerTypeAdapter(ZonedDateTime.class, createJDZDT())
 		                                                                   .registerTypeAdapter(Appearance.class,    createJDA())
 		                                                                   .registerTypeAdapter(HTTPstatus.class,    createJDHS())
+		                                                                   .registerTypeAdapter(CrosspostInfo.class, createJSCI())
 		                                                                   .create();
 
 		this.endpoints = new Retrofit.Builder()
@@ -200,6 +223,14 @@ public class WriteFreelyAPI {
 		                             .addConverterFactory(GsonConverterFactory.create(gson))
 		                             .build()
 		                             .create(Endpoints.class);
+	}
+
+	public ResponseWrapper<PostReturned> publishPost(final PostSent post) throws IOException {
+		return this.endpoints.publishPost(post).execute().body();
+	}
+
+	public ResponseWrapper<PostReturned> retrievePost(final String postID) throws IOException {
+		return this.endpoints.retrievePost(postID).execute().body();
 	}
 
 	public ResponseWrapper<Collection> getCollection(final String name) throws IOException {
