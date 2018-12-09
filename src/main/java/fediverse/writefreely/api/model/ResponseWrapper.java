@@ -12,7 +12,7 @@ public class ResponseWrapper<T> {
 	@JsonCreator
 	public ResponseWrapper(@JsonProperty("code") final int code,
 	                       @JsonProperty("data") final T   data) {
-		this.code     = HTTPstatus.getByCode(code);
+		this.code     = HTTPstatus.findByCode(code);
 		this.data     = data;
 		this.errorMsg = null;
 	}
@@ -20,7 +20,7 @@ public class ResponseWrapper<T> {
 	@JsonCreator
 	public ResponseWrapper(@JsonProperty("code")      final int    code,
 	                       @JsonProperty("error_msg") final String errorMsg) {
-		this.code     = HTTPstatus.getByCode(code);
+		this.code     = HTTPstatus.findByCode(code);
 		this.errorMsg = errorMsg;
 		this.data     = null;
 	}
