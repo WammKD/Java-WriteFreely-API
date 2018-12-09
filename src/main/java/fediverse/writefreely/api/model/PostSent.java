@@ -1,9 +1,8 @@
 package fediverse.writefreely.api.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.ZonedDateTime;
 import java.util.Locale;
+import javafx.util.Pair;
 
 public class PostSent {
 	private final String        body;
@@ -12,16 +11,15 @@ public class PostSent {
 	private final Locale        lang;
 	private final Boolean       rtl;
 	private final ZonedDateTime created;
-	private final Object[]      crosspost;
+	private final Pair<CrosspostID, String> crosspost;
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("title")   final String        title,
-	                @JsonProperty("font")    final Appearance    font,
-	                @JsonProperty("lang")    final Locale        lang,
-	                @JsonProperty("rtl")     final Boolean       rtl,
-	                @JsonProperty("created") final ZonedDateTime created,
-	                @JsonProperty("views")   final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final Appearance    font,
+	                final Locale        lang,
+	                final Boolean       rtl,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this.body      = body;
 		this.title     = title;
 		this.font      = font;
@@ -31,504 +29,441 @@ public class PostSent {
 		this.crosspost = crosspost;
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("title")   final String        title,
-	                @JsonProperty("font")    final Appearance    font,
-	                @JsonProperty("lang")    final Locale        lang,
-	                @JsonProperty("rtl")     final Boolean       rtl,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final Appearance    font,
+	                final Locale        lang,
+	                final Boolean       rtl,
+	                final ZonedDateTime created) {
 		this(body, title, font, lang, rtl, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String     body,
-	                @JsonProperty("title")     final String     title,
-	                @JsonProperty("font")      final Appearance font,
-	                @JsonProperty("lang")      final Locale     lang,
-	                @JsonProperty("rtl")       final Boolean    rtl,
-	                @JsonProperty("crosspost") final Object[]   crosspost) {
+	public PostSent(final String     body,
+	                final String     title,
+	                final Appearance font,
+	                final Locale     lang,
+	                final Boolean    rtl,
+	                final Pair<CrosspostID, String>   crosspost) {
 		this(body, title, font, lang, rtl, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("title")     final String        title,
-	                @JsonProperty("font")      final Appearance    font,
-	                @JsonProperty("lang")      final Locale        lang,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final Appearance    font,
+	                final Locale        lang,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, title, font, lang, null, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("title")     final String        title,
-	                @JsonProperty("font")      final Appearance    font,
-	                @JsonProperty("rtl")       final Boolean       rtl,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final Appearance    font,
+	                final Boolean       rtl,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, title, font, null, rtl, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("title")     final String        title,
-	                @JsonProperty("lang")      final Locale        lang,
-	                @JsonProperty("rtl")       final Boolean       rtl,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final Locale        lang,
+	                final Boolean       rtl,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, title, null, lang, rtl, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("font")      final Appearance    font,
-	                @JsonProperty("lang")      final Locale        lang,
-	                @JsonProperty("rtl")       final Boolean       rtl,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final Appearance    font,
+	                final Locale        lang,
+	                final Boolean       rtl,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, null, font, lang, rtl, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")  final String     body,
-	                @JsonProperty("title") final String     title,
-	                @JsonProperty("font")  final Appearance font,
-	                @JsonProperty("lang")  final Locale     lang,
-	                @JsonProperty("rtl")   final Boolean    rtl) {
+	public PostSent(final String     body,
+	                final String     title,
+	                final Appearance font,
+	                final Locale     lang,
+	                final Boolean    rtl) {
 		this(body, title, font, lang, rtl, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("title")   final String        title,
-	                @JsonProperty("font")    final Appearance    font,
-	                @JsonProperty("lang")    final Locale        lang,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final Appearance    font,
+	                final Locale        lang,
+	                final ZonedDateTime created) {
 		this(body, title, font, lang, null, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String     body,
-	                @JsonProperty("title")     final String     title,
-	                @JsonProperty("font")      final Appearance font,
-	                @JsonProperty("lang")      final Locale     lang,
-	                @JsonProperty("crosspost") final Object[]   crosspost) {
+	public PostSent(final String     body,
+	                final String     title,
+	                final Appearance font,
+	                final Locale     lang,
+	                final Pair<CrosspostID, String>   crosspost) {
 		this(body, title, font, lang, null, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("title")   final String        title,
-	                @JsonProperty("font")    final Appearance    font,
-	                @JsonProperty("rtl")     final Boolean       rtl,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final Appearance    font,
+	                final Boolean       rtl,
+	                final ZonedDateTime created) {
 		this(body, title, font, null, rtl, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String     body,
-	                @JsonProperty("title")     final String     title,
-	                @JsonProperty("font")      final Appearance font,
-	                @JsonProperty("rtl")       final Boolean    rtl,
-	                @JsonProperty("crosspost") final Object[]   crosspost) {
+	public PostSent(final String     body,
+	                final String     title,
+	                final Appearance font,
+	                final Boolean    rtl,
+	                final Pair<CrosspostID, String>   crosspost) {
 		this(body, title, font, null, rtl, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("title")     final String        title,
-	                @JsonProperty("font")      final Appearance    font,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final Appearance    font,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, title, font, null, null, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("title")   final String        title,
-	                @JsonProperty("lang")    final Locale        lang,
-	                @JsonProperty("rtl")     final Boolean       rtl,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final Locale        lang,
+	                final Boolean       rtl,
+	                final ZonedDateTime created) {
 		this(body, title, null, lang, rtl, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String   body,
-	                @JsonProperty("title")     final String   title,
-	                @JsonProperty("lang")      final Locale   lang,
-	                @JsonProperty("rtl")       final Boolean  rtl,
-	                @JsonProperty("crosspost") final Object[] crosspost) {
+	public PostSent(final String   body,
+	                final String   title,
+	                final Locale   lang,
+	                final Boolean  rtl,
+	                final Pair<CrosspostID, String> crosspost) {
 		this(body, title, null, lang, rtl, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("title")     final String        title,
-	                @JsonProperty("lang")      final Locale        lang,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final Locale        lang,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, title, null, lang, null, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("title")     final String        title,
-	                @JsonProperty("rtl")       final Boolean       rtl,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final Boolean       rtl,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, title, null, null, rtl, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("font")    final Appearance    font,
-	                @JsonProperty("lang")    final Locale        lang,
-	                @JsonProperty("rtl")     final Boolean       rtl,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final Appearance    font,
+	                final Locale        lang,
+	                final Boolean       rtl,
+	                final ZonedDateTime created) {
 		this(body, null, font, lang, rtl, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String     body,
-	                @JsonProperty("font")      final Appearance font,
-	                @JsonProperty("lang")      final Locale     lang,
-	                @JsonProperty("rtl")       final Boolean    rtl,
-	                @JsonProperty("crosspost") final Object[]   crosspost) {
+	public PostSent(final String     body,
+	                final Appearance font,
+	                final Locale     lang,
+	                final Boolean    rtl,
+	                final Pair<CrosspostID, String>   crosspost) {
 		this(body, null, font, lang, rtl, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("font")      final Appearance    font,
-	                @JsonProperty("lang")      final Locale        lang,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final Appearance    font,
+	                final Locale        lang,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, null, font, lang, null, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("font")      final Appearance    font,
-	                @JsonProperty("rtl")       final Boolean       rtl,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final Appearance    font,
+	                final Boolean       rtl,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, null, font, null, rtl, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("lang")      final Locale        lang,
-	                @JsonProperty("rtl")       final Boolean       rtl,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final Locale        lang,
+	                final Boolean       rtl,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, null, null, lang, rtl, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")  final String     body,
-	                @JsonProperty("title") final String     title,
-	                @JsonProperty("font")  final Appearance font,
-	                @JsonProperty("lang")  final Locale     lang) {
+	public PostSent(final String     body,
+	                final String     title,
+	                final Appearance font,
+	                final Locale     lang) {
 		this(body, title, font, lang, null, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")  final String     body,
-	                @JsonProperty("title") final String     title,
-	                @JsonProperty("font")  final Appearance font,
-	                @JsonProperty("rtl")   final Boolean    rtl) {
+	public PostSent(final String     body,
+	                final String     title,
+	                final Appearance font,
+	                final Boolean    rtl) {
 		this(body, title, font, null, rtl, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("title")   final String        title,
-	                @JsonProperty("font")    final Appearance    font,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final Appearance    font,
+	                final ZonedDateTime created) {
 		this(body, title, font, null, null, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String     body,
-	                @JsonProperty("title")     final String     title,
-	                @JsonProperty("font")      final Appearance font,
-	                @JsonProperty("crosspost") final Object[]   crosspost) {
+	public PostSent(final String     body,
+	                final String     title,
+	                final Appearance font,
+	                final Pair<CrosspostID, String>   crosspost) {
 		this(body, title, font, null, null, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")  final String  body,
-	                @JsonProperty("title") final String  title,
-	                @JsonProperty("lang")  final Locale  lang,
-	                @JsonProperty("rtl")   final Boolean rtl) {
+	public PostSent(final String  body,
+	                final String  title,
+	                final Locale  lang,
+	                final Boolean rtl) {
 		this(body, title, null, lang, rtl, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("title")   final String        title,
-	                @JsonProperty("lang")    final Locale        lang,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final Locale        lang,
+	                final ZonedDateTime created) {
 		this(body, title, null, lang, null, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String body,
-	                @JsonProperty("title")     final String title,
-	                @JsonProperty("lang")      final Locale lang,
-	                @JsonProperty("crosspost") final Object[] crosspost) {
+	public PostSent(final String body,
+	                final String title,
+	                final Locale lang,
+	                final Pair<CrosspostID, String> crosspost) {
 		this(body, title, null, lang, null, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("title")   final String        title,
-	                @JsonProperty("rtl")     final Boolean       rtl,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final Boolean       rtl,
+	                final ZonedDateTime created) {
 		this(body, title, null, null, rtl, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String   body,
-	                @JsonProperty("title")     final String   title,
-	                @JsonProperty("rtl")       final Boolean  rtl,
-	                @JsonProperty("crosspost") final Object[] crosspost) {
+	public PostSent(final String   body,
+	                final String   title,
+	                final Boolean  rtl,
+	                final Pair<CrosspostID, String> crosspost) {
 		this(body, title, null, null, rtl, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("title")     final String        title,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, title, null, null, null, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body") final String     body,
-	                @JsonProperty("font") final Appearance font,
-	                @JsonProperty("lang") final Locale     lang,
-	                @JsonProperty("rtl")  final Boolean    rtl) {
+	public PostSent(final String     body,
+	                final Appearance font,
+	                final Locale     lang,
+	                final Boolean    rtl) {
 		this(body, null, font, lang, rtl, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("font")    final Appearance    font,
-	                @JsonProperty("lang")    final Locale        lang,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final Appearance    font,
+	                final Locale        lang,
+	                final ZonedDateTime created) {
 		this(body, null, font, lang, null, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String     body,
-	                @JsonProperty("font")      final Appearance font,
-	                @JsonProperty("lang")      final Locale     lang,
-	                @JsonProperty("crosspost") final Object[]   crosspost) {
+	public PostSent(final String     body,
+	                final Appearance font,
+	                final Locale     lang,
+	                final Pair<CrosspostID, String>   crosspost) {
 		this(body, null, font, lang, null, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("font")    final Appearance    font,
-	                @JsonProperty("rtl")     final Boolean       rtl,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final Appearance    font,
+	                final Boolean       rtl,
+	                final ZonedDateTime created) {
 		this(body, null, font, null, rtl, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String     body,
-	                @JsonProperty("font")      final Appearance font,
-	                @JsonProperty("rtl")       final Boolean    rtl,
-	                @JsonProperty("crosspost") final Object[]   crosspost) {
+	public PostSent(final String     body,
+	                final Appearance font,
+	                final Boolean    rtl,
+	                final Pair<CrosspostID, String>   crosspost) {
 		this(body, null, font, null, rtl, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("font")      final Appearance    font,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final Appearance    font,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, null, font, null, null, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("lang")    final Locale        lang,
-	                @JsonProperty("rtl")     final Boolean       rtl,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final Locale        lang,
+	                final Boolean       rtl,
+	                final ZonedDateTime created) {
 		this(body, null, null, lang, rtl, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String   body,
-	                @JsonProperty("lang")      final Locale   lang,
-	                @JsonProperty("rtl")       final Boolean  rtl,
-	                @JsonProperty("crosspost") final Object[] crosspost) {
+	public PostSent(final String   body,
+	                final Locale   lang,
+	                final Boolean  rtl,
+	                final Pair<CrosspostID, String> crosspost) {
 		this(body, null, null, lang, rtl, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("lang")      final Locale        lang,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final Locale        lang,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, null, null, lang, null, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("rtl")       final Boolean       rtl,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final Boolean       rtl,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, null, null, null, rtl, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")  final String     body,
-	                @JsonProperty("title") final String     title,
-	                @JsonProperty("font")  final Appearance font) {
+	public PostSent(final String     body,
+	                final String     title,
+	                final Appearance font) {
 		this(body, title, font, null, null, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")  final String body,
-	                @JsonProperty("title") final String title,
-	                @JsonProperty("lang")  final Locale lang) {
+	public PostSent(final String body,
+	                final String title,
+	                final Locale lang) {
 		this(body, title, null, lang, null, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")  final String  body,
-	                @JsonProperty("title") final String  title,
-	                @JsonProperty("rtl")   final Boolean rtl) {
+	public PostSent(final String  body,
+	                final String  title,
+	                final Boolean rtl) {
 		this(body, title, null, null, rtl, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("title")   final String        title,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final String        title,
+	                final ZonedDateTime created) {
 		this(body, title, null, null, null, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String   body,
-	                @JsonProperty("title")     final String   title,
-	                @JsonProperty("crosspost") final Object[] crosspost) {
+	public PostSent(final String   body,
+	                final String   title,
+	                final Pair<CrosspostID, String> crosspost) {
 		this(body, title, null, null, null, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body") final String     body,
-	                @JsonProperty("font") final Appearance font,
-	                @JsonProperty("lang") final Locale     lang) {
+	public PostSent(final String     body,
+	                final Appearance font,
+	                final Locale     lang) {
 		this(body, null, font, lang, null, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body") final String     body,
-	                @JsonProperty("font") final Appearance font,
-	                @JsonProperty("rtl")  final Boolean    rtl) {
+	public PostSent(final String     body,
+	                final Appearance font,
+	                final Boolean    rtl) {
 		this(body, null, font, null, rtl, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("font")    final Appearance    font,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final Appearance    font,
+	                final ZonedDateTime created) {
 		this(body, null, font, null, null, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String     body,
-	                @JsonProperty("font")      final Appearance font,
-	                @JsonProperty("crosspost") final Object[]   crosspost) {
+	public PostSent(final String     body,
+	                final Appearance font,
+	                final Pair<CrosspostID, String>   crosspost) {
 		this(body, null, font, null, null, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body") final String  body,
-	                @JsonProperty("lang") final Locale  lang,
-	                @JsonProperty("rtl")  final Boolean rtl) {
+	public PostSent(final String  body,
+	                final Locale  lang,
+	                final Boolean rtl) {
 		this(body, null, null, lang, rtl, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("lang")    final Locale        lang,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final Locale        lang,
+	                final ZonedDateTime created) {
 		this(body, null, null, lang, null, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String   body,
-	                @JsonProperty("lang")      final Locale   lang,
-	                @JsonProperty("crosspost") final Object[] crosspost) {
+	public PostSent(final String   body,
+	                final Locale   lang,
+	                final Pair<CrosspostID, String> crosspost) {
 		this(body, null, null, lang, null, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("rtl")     final Boolean       rtl,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final Boolean       rtl,
+	                final ZonedDateTime created) {
 		this(body, null, null, null, rtl, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String   body,
-	                @JsonProperty("rtl")       final Boolean  rtl,
-	                @JsonProperty("crosspost") final Object[] crosspost) {
+	public PostSent(final String   body,
+	                final Boolean  rtl,
+	                final Pair<CrosspostID, String> crosspost) {
 		this(body, null, null, null, rtl, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String        body,
-	                @JsonProperty("created")   final ZonedDateTime created,
-	                @JsonProperty("crosspost") final Object[]      crosspost) {
+	public PostSent(final String        body,
+	                final ZonedDateTime created,
+	                final Pair<CrosspostID, String>      crosspost) {
 		this(body, null, null, null, null, created, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")  final String body,
-	                @JsonProperty("title") final String title) {
+	public PostSent(final String body,
+	                final String title) {
 		this(body, title, null, null, null, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body") final String     body,
-	                @JsonProperty("font") final Appearance font) {
+	public PostSent(final String     body,
+	                final Appearance font) {
 		this(body, null, font, null, null, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body") final String body,
-	                @JsonProperty("lang") final Locale lang) {
+	public PostSent(final String body,
+	                final Locale lang) {
 		this(body, null, null, lang, null, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body") final String  body,
-	                @JsonProperty("rtl")  final Boolean rtl) {
+	public PostSent(final String  body,
+	                final Boolean rtl) {
 		this(body, null, null, null, rtl, null, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")    final String        body,
-	                @JsonProperty("created") final ZonedDateTime created) {
+	public PostSent(final String        body,
+	                final ZonedDateTime created) {
 		this(body, null, null, null, null, created, null);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body")      final String   body,
-	                @JsonProperty("crosspost") final Object[] crosspost) {
+	public PostSent(final String   body,
+	                final Pair<CrosspostID, String> crosspost) {
 		this(body, null, null, null, null, null, crosspost);
 	}
 
-	@JsonCreator
-	public PostSent(@JsonProperty("body") final String body) {
+	public PostSent(final String body) {
 		this(body, null, null, null, null, null, null);
 	}
 
@@ -556,7 +491,7 @@ public class PostSent {
 		return this.created;
 	}
 
-	public final Object[]      getCrosspostInfo() {
+	public final Pair<CrosspostID, String>      getCrosspostInfo() {
 		return this.crosspost;
 	}
 }
