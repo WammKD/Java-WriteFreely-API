@@ -21,7 +21,7 @@ public class PostReturned {
 	public PostReturned(@JsonProperty("id")         final String        id,
 	                    @JsonProperty("slug")       final String        slug,
 	                    @JsonProperty("token")      final String        token,
-	                    @JsonProperty("appearance") final Appearance    appearance,
+	                    @JsonProperty("appearance") final String        appearance,
 	                    @JsonProperty("language")   final String        language,
 	                    @JsonProperty("rtl")        final boolean       rtl,
 	                    @JsonProperty("created")    final ZonedDateTime created,
@@ -32,7 +32,7 @@ public class PostReturned {
 		this.id         = id;
 		this.slug       = slug;
 		this.token      = token;
-		this.appearance = appearance;
+		this.appearance = Appearance.getByFont(appearance);
 		this.language   = language;
 		this.rtl        = rtl;
 		this.created    = created;
