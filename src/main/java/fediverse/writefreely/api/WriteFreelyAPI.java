@@ -91,7 +91,7 @@ public class WriteFreelyAPI {
 	                                                       		         response.request().url().toString());
 
 	                                                       		final Request req = new Request.Builder()
-	                                                       		                               .url(domain + Endpoints.AUTH)
+	                                                       		                               .url(domain + Endpoints.LOGIN)
 	                                                       		                               .addHeader("Content-Type", APPLICATION_JSON)
 	                                                       		                               .post(RequestBody.create(APP_JSON_MEDIA,
 	                                                       		                                                        "{ \"alias\": \"" + username + "\", " +

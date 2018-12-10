@@ -16,7 +16,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 interface Endpoints {
-	static final String AUTH                    = "api/auth/login";
 	static final String POST_PUBLISH            = "api/posts";
 	static final String POST_RETRIEVE           = "api/posts/{postID}";
 	static final String POST_CLAIM              = "api/posts/claim";
@@ -26,7 +25,8 @@ interface Endpoints {
 	static final String POST_RETRIEVE_BY_SLUG   = "api/collections/{collectionAlias}/posts/{slug}";
 	static final String POST_MOVE_TO_COLLECTION = "api/collections/{collectionAlias}/collect";
 
-	@POST(Endpoints.AUTH)
+	static final String LOGIN                    = "api/auth/login";
+	@POST(Endpoints.LOGIN)
 	Call<ResponseWrapper<Auth>>                            getToken();
 
 	@POST(Endpoints.POST_PUBLISH)
