@@ -6,6 +6,7 @@ import fediverse.writefreely.api.model.PostCreated;
 import fediverse.writefreely.api.model.PostReturned;
 import fediverse.writefreely.api.model.PostUpdate;
 import fediverse.writefreely.api.model.ResponseWrapper;
+import fediverse.writefreely.api.model.User;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -16,16 +17,20 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 interface Endpoints {
-	static final String POST_PUBLISH            = "api/posts";
-	static final String POST_RETRIEVE           = "api/posts/{postID}";
-	static final String POST_CLAIM              = "api/posts/claim";
-	static final String COLLECTIONS             = "api/collections";
-	static final String COLLECTION              = "api/collections/{collectionAlias}";
-	static final String POST_PUBLISH_BY_SLUG    = "api/collections/{collectionAlias}/posts";
-	static final String POST_RETRIEVE_BY_SLUG   = "api/collections/{collectionAlias}/posts/{slug}";
-	static final String POST_MOVE_TO_COLLECTION = "api/collections/{collectionAlias}/collect";
-
 	static final String LOGIN                    = "api/auth/login";
+	static final String LOGOUT                   = "api/auth/me";
+	static final String USER                     = "api/me";
+	static final String POST_PUBLISH             = "api/posts";
+	static final String POST_RETRIEVE            = "api/posts/{postID}";
+	static final String POST_CLAIM               = "api/posts/claim";
+	static final String COLLECTIONS              = "api/collections";
+	static final String COLLECTION               = "api/collections/{collectionAlias}";
+	static final String POST_PUBLISH_BY_SLUG     = "api/collections/{collectionAlias}/posts";
+	static final String POST_RETRIEVE_BY_SLUG    = "api/collections/{collectionAlias}/posts/{slug}";
+	static final String POST_MOVE_TO_COLLECTION  = "api/collections/{collectionAlias}/collect";
+	static final String POST_PIN_TO_COLLECTION   = "api/collections/{collectionAlias}/pin";
+	static final String POST_UNPIN_TO_COLLECTION = "api/collections/{collectionAlias}/unpin";
+
 	@POST(Endpoints.LOGIN)
 	Call<ResponseWrapper<Auth>>                            getToken();
 
@@ -84,4 +89,10 @@ interface Endpoints {
 	@POST(Endpoints.POST_PIN_TO_COLLECTION)
 	Call<ResponseWrapper<ResponseWrapper<String>[]>>       unpinPostToCollection(@Path("collectionAlias") String      ca,
 	                                                                             @Body                    RequestBody posts);
+
+	@DELETE(Endpoints.LOGOUT)
+	Call<Void>                                             logout();
+
+	@GET(Endpoints.USER)
+	Call<ResponseWrapper<User>>                            retrieveUser();
 }

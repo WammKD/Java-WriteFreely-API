@@ -371,4 +371,8 @@ public class WriteFreelyAPI {
 		           .execute()
 		           .body();
 	}
+
+	public boolean logout() throws IOException {
+		return this.endpoints.logout().execute().code() == WriteFreelyAPI.SUCCESSFUL_DELETE;
+	}
 }
