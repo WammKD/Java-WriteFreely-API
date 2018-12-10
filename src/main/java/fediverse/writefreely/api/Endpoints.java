@@ -16,11 +16,15 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 interface Endpoints {
-	static final String AUTH          = "api/auth/login";
-	static final String POST_PUBLISH  = "api/posts";
-	static final String POST_RETRIEVE = "api/posts/{postID}";
-	static final String POST_CLAIM    = "api/posts/claim";
-	static final String COLLECTION    = "api/collections/{collectionAlias}";
+	static final String AUTH                    = "api/auth/login";
+	static final String POST_PUBLISH            = "api/posts";
+	static final String POST_RETRIEVE           = "api/posts/{postID}";
+	static final String POST_CLAIM              = "api/posts/claim";
+	static final String COLLECTIONS             = "api/collections";
+	static final String COLLECTION              = "api/collections/{collectionAlias}";
+	static final String POST_PUBLISH_BY_SLUG    = "api/collections/{collectionAlias}/posts";
+	static final String POST_RETRIEVE_BY_SLUG   = "api/collections/{collectionAlias}/posts/{slug}";
+	static final String POST_MOVE_TO_COLLECTION = "api/collections/{collectionAlias}/collect";
 
 	@POST(Endpoints.AUTH)
 	Call<ResponseWrapper<Auth>>                            getToken();
@@ -45,6 +49,31 @@ interface Endpoints {
 	@POST(Endpoints.POST_CLAIM)
 	Call<ResponseWrapper<ResponseWrapper<PostReturned>[]>> claimPosts(@Body RequestBody posts);
 
+	@POST(Endpoints.COLLECTIONS)
+	Call<ResponseWrapper<Collection>>                      createCollection(@Body RequestBody coll);
+
 	@GET(Endpoints.COLLECTION)
-	Call<ResponseWrapper<Collection>>                      getCollection(@Path("collectionAlias") String ca);
+	Call<ResponseWrapper<Collection>>                      retrieveCollection(@Path("collectionAlias") String ca);
+
+	@DELETE(Endpoints.COLLECTION)
+	Call<Void>                                             deleteCollection(@Path("collectionAlias") String ca);
+
+	@GET(Endpoints.POST_RETRIEVE_BY_SLUG)
+	Call<ResponseWrapper<PostReturned>>                    retrievePostByCollection(@Path("collectionAlias") String ca,
+	                                                                                @Path("slug")            String s);
+
+	@POST(Endpoints.POST_PUBLISH_BY_SLUG)
+	Call<ResponseWrapper<PostReturned>>                    publishPostByCollection(@Path("collectionAlias") String      ca,
+	                                                                               @Body                    PostCreated body);
+
+	@GET(Endpoints.POST_PUBLISH_BY_SLUG)
+	Call<ResponseWrapper<Collection>>                      retrievePostsByCollection(@Path("collectionAlias") String ca);
+
+	@GET(Endpoints.POST_PUBLISH_BY_SLUG)
+	Call<ResponseWrapper<Collection>>                      retrievePostsByCollection(@Path("collectionAlias") String ca,
+	                                                                                 @Query("body")           String format);
+
+	@POST(Endpoints.POST_MOVE_TO_COLLECTION)
+	Call<ResponseWrapper<ResponseWrapper<PostReturned>[]>> movePostToCollection(@Path("collectionAlias") String      ca,
+	                                                                            @Body                    RequestBody posts);
 }
