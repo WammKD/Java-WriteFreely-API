@@ -15,6 +15,7 @@ public class PostReturned {
 	private final String        body;
 	private final String[]      tags;
 	private final long          views;
+	private final Collection    collection;
 
 	public PostReturned(final String        id,
 	                    final String        slug,
@@ -27,7 +28,8 @@ public class PostReturned {
 	                    final String        title,
 	                    final String        body,
 	                    final String[]      tags,
-	                    final long          views) {
+	                    final long          views,
+	                    final Collection    collection) {
 		this.id         = id;
 		this.slug       = slug;
 		this.token      = token;
@@ -40,6 +42,7 @@ public class PostReturned {
 		this.body       = body;
 		this.tags       = tags;
 		this.views      = views;
+		this.collection = collection;
 	}
 
 	public final String        getID() {
@@ -88,5 +91,9 @@ public class PostReturned {
 
 	public final long          getViews() {
 		return this.views;
+	}
+
+	public final Collection    getCollection() {
+		return this.collection;
 	}
 }
