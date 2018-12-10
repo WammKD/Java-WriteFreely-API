@@ -19,18 +19,18 @@ interface Endpoints {
 	static final String COLLECTION    = "api/collections/{collectionAlias}";
 
 	@POST(Endpoints.AUTH)
-	Call<ResponseWrapper<Auth>>         getToken();
+	Call<ResponseWrapper<Auth>>                            getToken();
 
 	@POST(Endpoints.POST_PUBLISH)
-	Call<ResponseWrapper<PostReturned>> publishPost(@Body PostCreated body);
+	Call<ResponseWrapper<PostReturned>>                    publishPost(@Body PostCreated body);
 
 	@GET(Endpoints.POST_RETRIEVE)
-	Call<ResponseWrapper<PostReturned>> retrievePost(@Path("postID") String pID);
+	Call<ResponseWrapper<PostReturned>>                    retrievePost(@Path("postID") String pID);
 
 	@POST(Endpoints.POST_RETRIEVE)
-	Call<ResponseWrapper<PostReturned>> updatePost(@Path("postID") String     pID,
-	                                               @Body           PostUpdate body);
+	Call<ResponseWrapper<PostReturned>>                    updatePost(@Path("postID") String     pID,
+	                                                                  @Body           PostUpdate body);
 
 	@GET(Endpoints.COLLECTION)
-	Call<ResponseWrapper<Collection>>   getCollection(@Path("collectionAlias") String ca);
+	Call<ResponseWrapper<Collection>>                      getCollection(@Path("collectionAlias") String ca);
 }
