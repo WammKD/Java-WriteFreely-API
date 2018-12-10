@@ -239,6 +239,16 @@ public class WriteFreelyAPI {
 		return this.endpoints.updatePost(postID, post).execute().body();
 	}
 
+	public boolean                       deletePost(final String postID) throws IOException {
+		return this.endpoints.deletePost(postID).execute().code() == WriteFreelyAPI.SUCCESSFUL_DELETE;
+	}
+
+	public boolean                       deletePost(final String postID,
+	                                                final String token) throws IOException {
+		return this.endpoints.deletePost(postID,
+		                                 token).execute().code() == WriteFreelyAPI.SUCCESSFUL_DELETE;
+	}
+
 	public ResponseWrapper<Collection> getCollection(final String name) throws IOException {
 		return this.endpoints.getCollection(name).execute().body();
 	}
