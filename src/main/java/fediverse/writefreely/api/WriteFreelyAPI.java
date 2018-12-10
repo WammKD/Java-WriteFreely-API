@@ -11,12 +11,14 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import fediverse.writefreely.api.model.Appearance;
+import fediverse.writefreely.api.model.Channel;
 import fediverse.writefreely.api.model.Collection;
 import fediverse.writefreely.api.model.CrosspostInfo;
 import fediverse.writefreely.api.model.PostCreated;
 import fediverse.writefreely.api.model.PostReturned;
 import fediverse.writefreely.api.model.PostUpdate;
 import fediverse.writefreely.api.model.ResponseWrapper;
+import fediverse.writefreely.api.model.User;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
@@ -386,5 +388,9 @@ public class WriteFreelyAPI {
 
 	public ResponseWrapper<Collection[]> retrieveUserCollections() throws IOException {
 		return this.endpoints.retrieveUserCollections().execute().body();
+	}
+
+	public ResponseWrapper<Channel[]> retrieveUserChannels() throws IOException {
+		return this.endpoints.retrieveUserChannels().execute().body();
 	}
 }

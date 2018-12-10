@@ -1,6 +1,7 @@
 package fediverse.writefreely.api;
 
 import fediverse.writefreely.api.model.Auth;
+import fediverse.writefreely.api.model.Channel;
 import fediverse.writefreely.api.model.Collection;
 import fediverse.writefreely.api.model.PostCreated;
 import fediverse.writefreely.api.model.PostReturned;
@@ -22,6 +23,7 @@ interface Endpoints {
 	static final String USER                     = "api/me";
 	static final String USER_POSTS               = "api/me/posts";
 	static final String USER_COLLECTIONS         = "api/me/collections";
+	static final String USER_CHANNELS            = "api/me/channels";
 	static final String POST_PUBLISH             = "api/posts";
 	static final String POST_RETRIEVE            = "api/posts/{postID}";
 	static final String POST_CLAIM               = "api/posts/claim";
@@ -103,4 +105,7 @@ interface Endpoints {
 
 	@GET(Endpoints.USER_COLLECTIONS)
 	Call<ResponseWrapper<Collection[]>>                    retrieveUserCollections();
+
+	@GET(Endpoints.USER_CHANNELS)
+	Call<ResponseWrapper<Channel[]>>                       retrieveUserChannels();
 }
