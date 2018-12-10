@@ -8,9 +8,11 @@ import fediverse.writefreely.api.model.PostUpdate;
 import fediverse.writefreely.api.model.ResponseWrapper;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 interface Endpoints {
 	static final String AUTH          = "api/auth/login";
@@ -30,6 +32,13 @@ interface Endpoints {
 	@POST(Endpoints.POST_RETRIEVE)
 	Call<ResponseWrapper<PostReturned>>                    updatePost(@Path("postID") String     pID,
 	                                                                  @Body           PostUpdate body);
+
+	@DELETE(Endpoints.POST_RETRIEVE)
+	Call<Void>                                             deletePost(@Path("postID") String pID);
+
+	@DELETE(Endpoints.POST_RETRIEVE)
+	Call<Void>                                             deletePost(@Path("postID") String pID,
+	                                                                  @Query("token") String token);
 
 	@GET(Endpoints.COLLECTION)
 	Call<ResponseWrapper<Collection>>                      getCollection(@Path("collectionAlias") String ca);
