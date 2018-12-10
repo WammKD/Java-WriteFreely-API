@@ -129,7 +129,25 @@ public class WriteFreelyAPI {
 	                                                       };
 	private              String                authToken = "";
 
-	private JsonSerializer<CrosspostInfo> createJSCI() {
+	private String                          convertArrayToJSON(final String          firstKey,
+	                                                           final String         secondKey,
+	                                                           final String[][] arrayOfArrays) {
+		String result = "[";
+
+		for(final String[] array : arrayOfArrays) {
+			result += "{ \"" +  firstKey + "\": \"" + array[0] + "\"";
+
+			if(array.length == 1) {
+				result += ", \"" + secondKey + "\": \"" + array[1] + "\"";
+			}
+
+			result += " }";
+		}
+
+		return result + "]";
+	}
+
+	private JsonSerializer<CrosspostInfo>   createJSCI() {
 		return new JsonSerializer<CrosspostInfo>() {
 		       	@Override
 		       	public JsonObject serialize(final CrosspostInfo            ci,
@@ -155,7 +173,7 @@ public class WriteFreelyAPI {
 		       };
 	}
 
-	private JsonDeserializer<Appearance> createJDA() {
+	private JsonDeserializer<Appearance>    createJDA() {
 		return new JsonDeserializer<Appearance>() {
 		       	@Override
 		       	public Appearance deserialize(final JsonElement                json,
@@ -166,7 +184,7 @@ public class WriteFreelyAPI {
 		       };
 	}
 
-	private JsonDeserializer<HTTPstatus> createJDHS() {
+	private JsonDeserializer<HTTPstatus>    createJDHS() {
 		return new JsonDeserializer<HTTPstatus>() {
 		       	@Override
 		       	public HTTPstatus deserialize(final JsonElement                json,
@@ -241,24 +259,36 @@ public class WriteFreelyAPI {
 		return this.endpoints.updatePost(postID, post).execute().body();
 	}
 
-	public boolean                       deletePost(final String postID) throws IOException {
+	public boolean deletePost(final String postID) throws IOException {
 		return this.endpoints.deletePost(postID).execute().code() == WriteFreelyAPI.SUCCESSFUL_DELETE;
 	}
 
-	public boolean                       deletePost(final String postID,
-	                                                final String token) throws IOException {
+	public boolean deletePost(final String postID,
+	                          final String token) throws IOException {
 		return this.endpoints.deletePost(postID,
 		                                 token).execute().code() == WriteFreelyAPI.SUCCESSFUL_DELETE;
 	}
 
 	public ResponseWrapper<ResponseWrapper<PostReturned>[]> claimPosts(final String[][] postsIDsAndTokens) throws IOException {
-		String result = "[";
+		return this.endpoints
+		           .claimPosts(RequestBody.create(APP_JSON_MEDIA,
+		                                          convertArrayToJSON("id",
+		                                                             "token",
+		                                                             postsIDsAndTokens)))
+		           .execute()
+		           .body();
+	}
 
-		for(final String[] tokensAndIDs : postsIDsAndTokens) {
-			result += "{ \"id\"   : \"" + tokensAndIDs[0] + "\","  +
-			          "  \"token\": \"" + tokensAndIDs[1] + "\" }";
-		}
+	public ResponseWrapper<Collection> createCollection(final String title) throws IOException {
+		return this.endpoints
+		           .createCollection(RequestBody.create(APP_JSON_MEDIA,
+		                                                "{ \"title\": \"" + title + "\" }"))
+		           .execute()
+		           .body();
+	}
 
+	public ResponseWrapper<Collection> createCollection(final String title,
+	                                                    final String alias) throws IOException {
 		return this.endpoints
 		           .createCollection(RequestBody.create(APP_JSON_MEDIA,
 		                                                "{ \"title\": \"" + title + "\"," +
@@ -267,7 +297,49 @@ public class WriteFreelyAPI {
 		           .body();
 	}
 
-	public ResponseWrapper<Collection> getCollection(final String name) throws IOException {
-		return this.endpoints.getCollection(name).execute().body();
+	public ResponseWrapper<Collection> retrieveCollection(final String alias) throws IOException {
+		return this.endpoints.retrieveCollection(alias).execute().body();
+	}
+
+	public boolean deleteCollection(final String alias) throws IOException {
+		return this.endpoints.deleteCollection(alias).execute().code() == WriteFreelyAPI.SUCCESSFUL_DELETE;
+	}
+
+	public ResponseWrapper<PostReturned> retrievePostByCollection(final String cAlias,
+	                                                              final String pSlug) throws IOException {
+		return this.endpoints.retrievePostByCollection(cAlias,
+		                                               pSlug).execute().body();
+	}
+
+	public ResponseWrapper<PostReturned> publishPostByCollection(final String      cAlias,
+	                                                             final PostCreated post) throws IOException {
+		return this.endpoints.publishPostByCollection(cAlias,
+		                                              post).execute().body();
+	}
+
+	public ResponseWrapper<Collection> retrievePostsByCollection(final String cAlias) throws IOException {
+		return this.endpoints.retrievePostsByCollection(cAlias).execute().body();
+	}
+
+	public ResponseWrapper<Collection> retrievePostsByCollection(final String  cAlias,
+	                                                             final boolean isFormatted) throws IOException {
+		if(isFormatted) {
+			return this.endpoints.retrievePostsByCollection(cAlias,
+			                                                "html").execute().body();
+		} else {
+			return this.endpoints.retrievePostsByCollection(cAlias).execute().body();
+		}
+	}
+
+	public ResponseWrapper<ResponseWrapper<PostReturned>[]> movePostToCollection(final String     cAlias,
+	                                                                             final String[][] postsIDsAndTokens) throws IOException {
+		return this.endpoints
+		           .movePostToCollection(cAlias,
+		                                 RequestBody.create(APP_JSON_MEDIA,
+		                                                    convertArrayToJSON("id",
+		                                                                       "token",
+		                                                                       postsIDsAndTokens)))
+		       	   .execute()
+			       .body();
 	}
 }
