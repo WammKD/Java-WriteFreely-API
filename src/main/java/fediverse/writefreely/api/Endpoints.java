@@ -6,6 +6,7 @@ import fediverse.writefreely.api.model.PostCreated;
 import fediverse.writefreely.api.model.PostReturned;
 import fediverse.writefreely.api.model.PostUpdate;
 import fediverse.writefreely.api.model.ResponseWrapper;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -18,6 +19,7 @@ interface Endpoints {
 	static final String AUTH          = "api/auth/login";
 	static final String POST_PUBLISH  = "api/posts";
 	static final String POST_RETRIEVE = "api/posts/{postID}";
+	static final String POST_CLAIM    = "api/posts/claim";
 	static final String COLLECTION    = "api/collections/{collectionAlias}";
 
 	@POST(Endpoints.AUTH)
@@ -39,6 +41,9 @@ interface Endpoints {
 	@DELETE(Endpoints.POST_RETRIEVE)
 	Call<Void>                                             deletePost(@Path("postID") String pID,
 	                                                                  @Query("token") String token);
+
+	@POST(Endpoints.POST_CLAIM)
+	Call<ResponseWrapper<ResponseWrapper<PostReturned>[]>> claimPosts(@Body RequestBody posts);
 
 	@GET(Endpoints.COLLECTION)
 	Call<ResponseWrapper<Collection>>                      getCollection(@Path("collectionAlias") String ca);

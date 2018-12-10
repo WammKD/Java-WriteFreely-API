@@ -41,6 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class WriteFreelyAPI {
 	private static final String         APPLICATION_JSON = "application/json";
+	private static final int           SUCCESSFUL_DELETE = HTTPstatus.NO_CONTENT.getCode();
 	private static final Logger                      LOG = Logger.getLogger(WriteFreelyAPI.class.getName());
 	private        final Endpoints             endpoints;
 	private        final URL                      domain;
@@ -247,6 +248,21 @@ public class WriteFreelyAPI {
 	                                                final String token) throws IOException {
 		return this.endpoints.deletePost(postID,
 		                                 token).execute().code() == WriteFreelyAPI.SUCCESSFUL_DELETE;
+	}
+
+	public ResponseWrapper<ResponseWrapper<PostReturned>[]> claimPosts(final String[][] postsIDsAndTokens) throws IOException {
+		String result = "[";
+
+		for(final String[] tokensAndIDs : postsIDsAndTokens) {
+			result += "{ \"id\"   : \"" + tokensAndIDs[0] + "\","  +
+			          "  \"token\": \"" + tokensAndIDs[1] + "\" }";
+		}
+
+		return this.endpoints
+		           .claimPosts(RequestBody.create(MediaType.parse(WriteFreelyAPI.APPLICATION_JSON),
+		                                          result + "]"))
+		           .execute()
+		           .body();
 	}
 
 	public ResponseWrapper<Collection> getCollection(final String name) throws IOException {
