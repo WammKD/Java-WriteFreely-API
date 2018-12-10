@@ -76,4 +76,12 @@ interface Endpoints {
 	@POST(Endpoints.POST_MOVE_TO_COLLECTION)
 	Call<ResponseWrapper<ResponseWrapper<PostReturned>[]>> movePostToCollection(@Path("collectionAlias") String      ca,
 	                                                                            @Body                    RequestBody posts);
+
+	@POST(Endpoints.POST_PIN_TO_COLLECTION)
+	Call<ResponseWrapper<ResponseWrapper<String>[]>>       pinPostToCollection(@Path("collectionAlias") String      ca,
+	                                                                           @Body                    RequestBody posts);
+
+	@POST(Endpoints.POST_PIN_TO_COLLECTION)
+	Call<ResponseWrapper<ResponseWrapper<String>[]>>       unpinPostToCollection(@Path("collectionAlias") String      ca,
+	                                                                             @Body                    RequestBody posts);
 }

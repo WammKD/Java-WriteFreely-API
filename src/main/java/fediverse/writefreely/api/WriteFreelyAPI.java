@@ -22,6 +22,7 @@ import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.logging.Logger;
 import okhttp3.Authenticator;
 import okhttp3.Interceptor.Chain;
@@ -341,5 +342,33 @@ public class WriteFreelyAPI {
 		                                                                       postsIDsAndTokens)))
 		       	   .execute()
 			       .body();
+	}
+
+	public ResponseWrapper<ResponseWrapper<String>[]> pinPostToCollection(final String     cAlias,
+	                                                                      final String[][] postsIDsAndPositions) throws IOException {
+		return this.endpoints
+		           .pinPostToCollection(cAlias,
+		                                RequestBody.create(APP_JSON_MEDIA,
+		                                                   convertArrayToJSON("id",
+		                                                                      "position",
+		                                                                      postsIDsAndPositions)))
+		           .execute()
+		           .body();
+	}
+
+	public ResponseWrapper<ResponseWrapper<String>[]> unpinPostToCollection(final String     cAlias,
+	                                                                        final String[] postsIDs) throws IOException {
+		final String result = Arrays.stream(postsIDs)
+		                            .reduce("[",
+		                                    (String r,
+		                                     String pID) -> r + "{ \"id\": \"" + pID + "\" }, ");
+
+		return this.endpoints
+		           .pinPostToCollection(cAlias,
+		                                RequestBody.create(APP_JSON_MEDIA,
+		                                                   result.substring(0,
+		                                                                    result.length() - 2) + "]"))
+		           .execute()
+		           .body();
 	}
 }
