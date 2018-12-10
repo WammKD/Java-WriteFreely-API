@@ -375,4 +375,16 @@ public class WriteFreelyAPI {
 	public boolean logout() throws IOException {
 		return this.endpoints.logout().execute().code() == WriteFreelyAPI.SUCCESSFUL_DELETE;
 	}
+
+	public ResponseWrapper<User> retrieveUser() throws IOException {
+		return this.endpoints.retrieveUser().execute().body();
+	}
+
+	public ResponseWrapper<PostReturned[]> retrieveUserPosts() throws IOException {
+		return this.endpoints.retrieveUserPosts().execute().body();
+	}
+
+	public ResponseWrapper<Collection[]> retrieveUserCollections() throws IOException {
+		return this.endpoints.retrieveUserCollections().execute().body();
+	}
 }
