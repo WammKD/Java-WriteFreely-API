@@ -41,6 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class WriteFreelyAPI {
 	private static final String         APPLICATION_JSON = "application/json";
+	private static final MediaType        APP_JSON_MEDIA = MediaType.parse(WriteFreelyAPI.APPLICATION_JSON);
 	private static final int           SUCCESSFUL_DELETE = HTTPstatus.NO_CONTENT.getCode();
 	private static final Logger                      LOG = Logger.getLogger(WriteFreelyAPI.class.getName());
 	private        final Endpoints             endpoints;
@@ -92,7 +93,7 @@ public class WriteFreelyAPI {
 	                                                       		final Request req = new Request.Builder()
 	                                                       		                               .url(domain + Endpoints.AUTH)
 	                                                       		                               .addHeader("Content-Type", APPLICATION_JSON)
-	                                                       		                               .post(RequestBody.create(MediaType.parse(APPLICATION_JSON),
+	                                                       		                               .post(RequestBody.create(APP_JSON_MEDIA,
 	                                                       		                                                        "{ \"alias\": \"" + username + "\", " +
 	                                                       		                                                        "   \"pass\": \"" + passcode + "\" }"))
 	                                                       		                               .build();
@@ -259,8 +260,9 @@ public class WriteFreelyAPI {
 		}
 
 		return this.endpoints
-		           .claimPosts(RequestBody.create(MediaType.parse(WriteFreelyAPI.APPLICATION_JSON),
-		                                          result + "]"))
+		           .createCollection(RequestBody.create(APP_JSON_MEDIA,
+		                                                "{ \"title\": \"" + title + "\"," +
+		                                                "  \"alias\": \"" + alias + "\" }"))
 		           .execute()
 		           .body();
 	}
