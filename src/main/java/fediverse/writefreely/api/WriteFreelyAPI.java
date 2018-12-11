@@ -17,18 +17,16 @@ public class WriteFreelyAPI extends WriteFreelyAPIabstract {
 
 	public WriteFreelyAPI(final String domain) throws MalformedURLException {
 		this.domain    = new URL(domain);
-		this.endpoints = WriteFreelyAPIabstract.generateEndpoints(this.domain.toString(),
-		                                                          WriteFreelyAPI.LOG,
-		                                                          super.authToken,
-		                                                          null);
+		this.endpoints = super.generateEndpoints(this.domain.toString(),
+		                                         WriteFreelyAPI.LOG,
+		                                         null);
 	}
 
 	public WriteFreelyAPI(final URL domain) {
 		this.domain    = domain;
-		this.endpoints = WriteFreelyAPIabstract.generateEndpoints(this.domain.toString(),
-		                                                          WriteFreelyAPI.LOG,
-		                                                          super.authToken,
-		                                                          null);
+		this.endpoints = super.generateEndpoints(this.domain.toString(),
+		                                         WriteFreelyAPI.LOG,
+		                                         null);
 	}
 
 	public ResponseWrapper<PostReturned> publishPost(final PostCreated post) throws IOException {

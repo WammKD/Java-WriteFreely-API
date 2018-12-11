@@ -77,7 +77,7 @@ abstract class WriteFreelyAPIabstract {
 	}
 
 	static final JsonDeserializer<ZonedDateTime> createJDZDT() {
-		return WriteFreelyAPIabstract.createJD((final JsonElement json) -> ZonedDateTime.parse(json.getAsJsonObject()
+		return WriteFreelyAPIabstract.createJD((final JsonElement json) -> ZonedDateTime.parse(json.getAsJsonPrimitive()
 		                                                                                           .getAsString()));
 	}
 
@@ -91,8 +91,7 @@ abstract class WriteFreelyAPIabstract {
 		                                                                                             .getAsString()));
 	}
 
-	static final Interceptor generateInterceptor(final Logger log,
-	                                             final String authToken) {
+	final Interceptor generateInterceptor(final Logger log) {
 		return new Interceptor() {
 			@Override
 			public Response intercept(final Chain chain) throws IOException {
@@ -103,8 +102,8 @@ abstract class WriteFreelyAPIabstract {
 				// Add Headers to request
 				log.finest("Adding headers and building.");
 				final Request updatedRequest     = inRequest.newBuilder()
-				                                            .addHeader("Content-Type",  WriteFreelyAPIabstract.APPLICATION_JSON)
-				                                            .addHeader("Authorization", authToken)
+				                                            .addHeader("Content-Type",           WriteFreelyAPIabstract.APPLICATION_JSON)
+				                                            .addHeader("Authorization", "Token " + WriteFreelyAPIabstract.this.authToken)
 				                                            .build();
 				log.finest("Outbound Request: "            +
 				           updatedRequest.url().toString());
@@ -114,20 +113,17 @@ abstract class WriteFreelyAPIabstract {
 		};
 	}
 
-	static final Endpoints generateEndpoints(final String        url,
-	                                         final Logger        log,
-	                                         final String        token,
-	                                         final Authenticator auth) {
+	final Endpoints generateEndpoints(final String        url,
+	                                  final Logger        log,
+	                                  final Authenticator auth) {
 		final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
-		final OkHttpClient           okHTTPclient       = auth == null                                                                       ?
+		final OkHttpClient           okHTTPclient       = auth == null                                                   ?
 		                                                  new OkHttpClient.Builder()
-		                                                                  .addInterceptor(WriteFreelyAPIabstract.generateInterceptor(log,
-		                                                                                                                             token))
+		                                                                  .addInterceptor(this.generateInterceptor(log))
 		                                                                  .addInterceptor(loggingInterceptor)
-		                                                                  .build()                                                           :
+		                                                                  .build()                                       :
 		                                                  new OkHttpClient.Builder()
-		                                                                  .addInterceptor(WriteFreelyAPIabstract.generateInterceptor(log,
-		                                                                                                                             token))
+		                                                                  .addInterceptor(this.generateInterceptor(log))
 		                                                                  .addInterceptor(loggingInterceptor)
 		                                                                  .authenticator(auth)
 		                                                                  .build();

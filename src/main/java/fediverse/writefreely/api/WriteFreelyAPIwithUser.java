@@ -65,8 +65,8 @@ public class WriteFreelyAPIwithUser extends WriteFreelyAPIabstract {
 
 				return response.request()
 				               .newBuilder()
-				               .header("Content-Type",  WriteFreelyAPIabstract.APPLICATION_JSON)
-				               .header("Authorization",  WriteFreelyAPIwithUser.super.authToken)
+				               .header("Content-Type",            WriteFreelyAPIabstract.APPLICATION_JSON)
+				               .header("Authorization", "Token " + WriteFreelyAPIwithUser.super.authToken)
 				               .build();
 			}
 
@@ -89,10 +89,9 @@ public class WriteFreelyAPIwithUser extends WriteFreelyAPIabstract {
 		this.domain    = new URL(domain);
 		this.username  = username;
 		this.passcode  = passcode;
-		this.endpoints = WriteFreelyAPIabstract.generateEndpoints(this.domain.toString(),
-		                                                          WriteFreelyAPIwithUser.LOG,
-		                                                          super.authToken,
-		                                                          this.generateAuthenticator());
+		this.endpoints = super.generateEndpoints(this.domain.toString(),
+		                                         WriteFreelyAPIwithUser.LOG,
+		                                         this.generateAuthenticator());
 	}
 
 	public WriteFreelyAPIwithUser(final URL    domain,
@@ -101,10 +100,9 @@ public class WriteFreelyAPIwithUser extends WriteFreelyAPIabstract {
 		this.domain    = domain;
 		this.username  = username;
 		this.passcode  = passcode;
-		this.endpoints = WriteFreelyAPIabstract.generateEndpoints(this.domain.toString(),
-		                                                          WriteFreelyAPIwithUser.LOG,
-		                                                          super.authToken,
-		                                                          this.generateAuthenticator());
+		this.endpoints = super.generateEndpoints(this.domain.toString(),
+		                                         WriteFreelyAPIwithUser.LOG,
+		                                         this.generateAuthenticator());
 	}
 
 	public ResponseWrapper<PostReturned> publishPost(final PostCreated post) throws IOException {
