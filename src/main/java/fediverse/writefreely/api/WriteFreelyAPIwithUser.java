@@ -51,22 +51,22 @@ public class WriteFreelyAPIwithUser extends WriteFreelyAPIabstract {
 				                                                        "{ \"alias\": \"" + WriteFreelyAPIwithUser.this.username + "\", " +
 				                                                        "   \"pass\": \"" + WriteFreelyAPIwithUser.this.passcode + "\" }"))
 				                               .build();
-				WriteFreelyAPIwithUser.this.authToken = new JsonParser().parse(new OkHttpClient().newCall(req)
-				                                                                                 .execute()
-				                                                                                 .body()
-				                                                                                 .string())
-				                                                        .getAsJsonObject()
-				                                                        .get("data")
-				                                                        .getAsJsonObject()
-				                                                        .get("access_token")
-				                                                        .getAsString();
+				WriteFreelyAPIwithUser.super.authToken = new JsonParser().parse(new OkHttpClient().newCall(req)
+				                                                                                  .execute()
+				                                                                                  .body()
+				                                                                                  .string())
+				                                                         .getAsJsonObject()
+				                                                         .get("data")
+				                                                         .getAsJsonObject()
+				                                                         .get("access_token")
+				                                                         .getAsString();
 
 				WriteFreelyAPIwithUser.LOG.finest("Acquired Mall API authorization token.");
 
 				return response.request()
 				               .newBuilder()
 				               .header("Content-Type",  WriteFreelyAPIabstract.APPLICATION_JSON)
-				               .header("Authorization",   WriteFreelyAPIwithUser.this.authToken)
+				               .header("Authorization",  WriteFreelyAPIwithUser.super.authToken)
 				               .build();
 			}
 
