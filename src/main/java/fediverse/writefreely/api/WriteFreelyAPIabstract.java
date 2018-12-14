@@ -41,7 +41,7 @@ abstract class WriteFreelyAPIabstract {
 		for(final String[] array : arrayOfArrays) {
 			result += "{ \"" +  firstKey + "\": \"" + array[0] + "\"";
 
-			if(array.length == 1) {
+			if(array.length == 2) {
 				result += ", \"" + secondKey + "\": \"" + array[1] + "\"";
 			}
 
