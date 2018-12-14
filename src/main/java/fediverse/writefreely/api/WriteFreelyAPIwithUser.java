@@ -96,7 +96,7 @@ public class WriteFreelyAPIwithUser extends WriteFreelyAPIabstract {
 
 	public WriteFreelyAPIwithUser(final URL    domain,
 	                              final String username,
-	                              final String passcode) throws MalformedURLException {
+	                              final String passcode) {
 		this.domain    = domain;
 		this.username  = username;
 		this.passcode  = passcode;
