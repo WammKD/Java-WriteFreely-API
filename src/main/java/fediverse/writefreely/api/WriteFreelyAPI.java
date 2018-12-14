@@ -30,7 +30,11 @@ public class WriteFreelyAPI extends WriteFreelyAPIabstract {
 	}
 
 	public ResponseWrapper<PostReturned> publishPost(final PostCreated post) throws IOException {
-		return this.endpoints.publishPost(post).execute().body();
+		if(post.getCrosspostInfo() != null) {
+			throw new IllegalArgumentException("Posts cannot be crossposted unless authenticated!");
+		} else {
+			return this.endpoints.publishPost(post).execute().body();
+		}
 	}
 
 	public ResponseWrapper<PostReturned> retrievePost(final String postID) throws IOException {
@@ -39,11 +43,14 @@ public class WriteFreelyAPI extends WriteFreelyAPIabstract {
 
 	public ResponseWrapper<PostReturned> updatePost(final String     postID,
 	                                                final PostUpdate post) throws IOException {
-		return this.endpoints.updatePost(postID, post).execute().body();
-	}
-
-	public boolean deletePost(final String postID) throws IOException {
-		return this.endpoints.deletePost(postID).execute().code() == WriteFreelyAPI.SUCCESSFUL_DELETE;
+		if(post.getToken() == null) {
+			throw new IllegalArgumentException("Updating a post, while "    +
+			                                   "not having authenticated "  +
+			                                   "a user, requires the "      +
+			                                   "sent post to have a token.");
+		} else {
+			return this.endpoints.updatePost(postID, post).execute().body();
+		}
 	}
 
 	public boolean deletePost(final String postID,
