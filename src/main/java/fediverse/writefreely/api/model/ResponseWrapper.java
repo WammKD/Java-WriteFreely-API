@@ -1,7 +1,5 @@
 package fediverse.writefreely.api.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import fediverse.writefreely.api.HTTPstatus;
 
 public class ResponseWrapper<T> {
@@ -9,8 +7,6 @@ public class ResponseWrapper<T> {
 	private final HTTPstatus   code;
 	private final T            data;
 	private final PostReturned post;
-	@SerializedName("error_msg")
-	@Expose
 	private final String       errorMsg;
 
 	public ResponseWrapper(final HTTPstatus code,

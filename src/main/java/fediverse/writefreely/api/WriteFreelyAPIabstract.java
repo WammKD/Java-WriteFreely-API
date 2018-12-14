@@ -7,10 +7,12 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import fediverse.writefreely.api.model.Appearance;
 import fediverse.writefreely.api.model.CrosspostInfo;
+import fediverse.writefreely.api.model.ResponseWrapper;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.ZonedDateTime;
@@ -139,5 +141,22 @@ abstract class WriteFreelyAPIabstract {
 		                   .addConverterFactory(GsonConverterFactory.create(gson))
 		                   .build()
 		                   .create(Endpoints.class);
+	}
+
+	final <T> ResponseWrapper<T> parseResponse(final retrofit2.Response<ResponseWrapper<T>> response) {
+		if(response.isSuccessful()) {
+			return response.body();
+		} else {
+			try {
+				final JsonObject jo = new JsonParser().parse(response.errorBody()
+				                                                     .string())
+				                                      .getAsJsonObject();
+
+				return new ResponseWrapper<T>(jo.get("code").getAsInt(),
+				                              jo.get("error_msg").getAsString());
+			} catch(final IOException e) {
+				return new ResponseWrapper<T>(response.code(), e.getMessage());
+			}
+		}
 	}
 }
