@@ -33,12 +33,12 @@ public class WriteFreelyAPI extends WriteFreelyAPIabstract {
 		if(post.getCrosspostInfo() != null) {
 			throw new IllegalArgumentException("Posts cannot be crossposted unless authenticated!");
 		} else {
-			return this.endpoints.publishPost(post).execute().body();
+			return super.parseResponse(this.endpoints.publishPost(post).execute());
 		}
 	}
 
 	public ResponseWrapper<PostReturned> retrievePost(final String postID) throws IOException {
-		return this.endpoints.retrievePost(postID).execute().body();
+		return super.parseResponse(this.endpoints.retrievePost(postID).execute());
 	}
 
 	public ResponseWrapper<PostReturned> updatePost(final String     postID,
@@ -49,7 +49,8 @@ public class WriteFreelyAPI extends WriteFreelyAPIabstract {
 			                                   "a user, requires the "      +
 			                                   "sent post to have a token.");
 		} else {
-			return this.endpoints.updatePost(postID, post).execute().body();
+			return super.parseResponse(this.endpoints.updatePost(postID,
+			                                                     post).execute());
 		}
 	}
 
@@ -60,26 +61,26 @@ public class WriteFreelyAPI extends WriteFreelyAPIabstract {
 	}
 
 	public ResponseWrapper<Collection> retrieveCollection(final String alias) throws IOException {
-		return this.endpoints.retrieveCollection(alias).execute().body();
+		return super.parseResponse(this.endpoints.retrieveCollection(alias).execute());
 	}
 
 	public ResponseWrapper<PostReturned> retrievePostByCollection(final String cAlias,
 	                                                              final String pSlug) throws IOException {
-		return this.endpoints.retrievePostByCollection(cAlias,
-		                                               pSlug).execute().body();
+		return super.parseResponse(this.endpoints.retrievePostByCollection(cAlias,
+		                                                                   pSlug).execute());
 	}
 
 	public ResponseWrapper<Collection> retrievePostsByCollection(final String cAlias) throws IOException {
-		return this.endpoints.retrievePostsByCollection(cAlias).execute().body();
+		return super.parseResponse(this.endpoints.retrievePostsByCollection(cAlias).execute());
 	}
 
 	public ResponseWrapper<Collection> retrievePostsByCollection(final String  cAlias,
 	                                                             final boolean isFormatted) throws IOException {
 		if(isFormatted) {
-			return this.endpoints.retrievePostsByCollection(cAlias,
-			                                                "html").execute().body();
+			return super.parseResponse(this.endpoints.retrievePostsByCollection(cAlias,
+			                                                                    "html").execute());
 		} else {
-			return this.endpoints.retrievePostsByCollection(cAlias).execute().body();
+			return super.parseResponse(this.endpoints.retrievePostsByCollection(cAlias).execute());
 		}
 	}
 }

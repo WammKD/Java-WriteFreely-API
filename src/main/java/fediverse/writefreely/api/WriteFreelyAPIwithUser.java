@@ -106,16 +106,17 @@ public class WriteFreelyAPIwithUser extends WriteFreelyAPIabstract {
 	}
 
 	public ResponseWrapper<PostReturned> publishPost(final PostCreated post) throws IOException {
-		return this.endpoints.publishPost(post).execute().body();
+		return super.parseResponse(this.endpoints.publishPost(post).execute());
 	}
 
 	public ResponseWrapper<PostReturned> retrievePost(final String postID) throws IOException {
-		return this.endpoints.retrievePost(postID).execute().body();
+		return super.parseResponse(this.endpoints.retrievePost(postID).execute());
 	}
 
 	public ResponseWrapper<PostReturned> updatePost(final String     postID,
 	                                                final PostUpdate post) throws IOException {
-		return this.endpoints.updatePost(postID, post).execute().body();
+		return super.parseResponse(this.endpoints.updatePost(postID,
+		                                                     post).execute());
 	}
 
 	public boolean deletePost(final String postID) throws IOException {
@@ -129,35 +130,32 @@ public class WriteFreelyAPIwithUser extends WriteFreelyAPIabstract {
 	}
 
 	public ResponseWrapper<ResponseWrapper<PostReturned>[]> claimPosts(final String[][] postsIDsAndTokens) throws IOException {
-		return this.endpoints
-		           .claimPosts(RequestBody.create(WriteFreelyAPIabstract.APP_JSON_MEDIA,
-		                                          WriteFreelyAPIabstract.convertArrayToJSON("id",
-		                                                                                    "token",
-		                                                                                    postsIDsAndTokens)))
-		           .execute()
-		           .body();
+		return super.parseResponse(this.endpoints
+		                               .claimPosts(RequestBody.create(WriteFreelyAPIabstract.APP_JSON_MEDIA,
+		                                                              WriteFreelyAPIabstract.convertArrayToJSON("id",
+		                                                                                                        "token",
+		                                                                                                        postsIDsAndTokens)))
+		                               .execute());
 	}
 
 	public ResponseWrapper<Collection> createCollection(final String title) throws IOException {
-		return this.endpoints
-		           .createCollection(RequestBody.create(APP_JSON_MEDIA,
-		                                                "{ \"title\": \"" + title + "\" }"))
-		           .execute()
-		           .body();
+		return super.parseResponse(this.endpoints
+		                               .createCollection(RequestBody.create(APP_JSON_MEDIA,
+		                                                                    "{ \"title\": \"" + title + "\" }"))
+		                               .execute());
 	}
 
 	public ResponseWrapper<Collection> createCollection(final String title,
 	                                                    final String alias) throws IOException {
-		return this.endpoints
-		           .createCollection(RequestBody.create(APP_JSON_MEDIA,
-		                                                "{ \"title\": \"" + title + "\"," +
-		                                                "  \"alias\": \"" + alias + "\" }"))
-		           .execute()
-		           .body();
+		return super.parseResponse(this.endpoints
+		                               .createCollection(RequestBody.create(APP_JSON_MEDIA,
+		                                                                    "{ \"title\": \"" + title + "\"," +
+		                                                                    "  \"alias\": \"" + alias + "\" }"))
+		                               .execute());
 	}
 
 	public ResponseWrapper<Collection> retrieveCollection(final String alias) throws IOException {
-		return this.endpoints.retrieveCollection(alias).execute().body();
+		return super.parseResponse(this.endpoints.retrieveCollection(alias).execute());
 	}
 
 	public boolean deleteCollection(final String alias) throws IOException {
@@ -166,52 +164,50 @@ public class WriteFreelyAPIwithUser extends WriteFreelyAPIabstract {
 
 	public ResponseWrapper<PostReturned> retrievePostByCollection(final String cAlias,
 	                                                              final String pSlug) throws IOException {
-		return this.endpoints.retrievePostByCollection(cAlias,
-		                                               pSlug).execute().body();
+		return super.parseResponse(this.endpoints.retrievePostByCollection(cAlias,
+		                                                                   pSlug).execute());
 	}
 
 	public ResponseWrapper<PostReturned> publishPostByCollection(final String      cAlias,
 	                                                             final PostCreated post) throws IOException {
-		return this.endpoints.publishPostByCollection(cAlias,
-		                                              post).execute().body();
+		return super.parseResponse(this.endpoints.publishPostByCollection(cAlias,
+		                                                                  post).execute());
 	}
 
 	public ResponseWrapper<Collection> retrievePostsByCollection(final String cAlias) throws IOException {
-		return this.endpoints.retrievePostsByCollection(cAlias).execute().body();
+		return super.parseResponse(this.endpoints.retrievePostsByCollection(cAlias).execute());
 	}
 
 	public ResponseWrapper<Collection> retrievePostsByCollection(final String  cAlias,
 	                                                             final boolean isFormatted) throws IOException {
 		if(isFormatted) {
-			return this.endpoints.retrievePostsByCollection(cAlias,
-			                                                "html").execute().body();
+			return super.parseResponse(this.endpoints.retrievePostsByCollection(cAlias,
+			                                                                    "html").execute());
 		} else {
-			return this.endpoints.retrievePostsByCollection(cAlias).execute().body();
+			return super.parseResponse(this.endpoints.retrievePostsByCollection(cAlias).execute());
 		}
 	}
 
 	public ResponseWrapper<ResponseWrapper<PostReturned>[]> movePostToCollection(final String     cAlias,
 	                                                                             final String[][] postsIDsAndTokens) throws IOException {
-		return this.endpoints
-		           .movePostToCollection(cAlias,
-		                                 RequestBody.create(WriteFreelyAPIabstract.APP_JSON_MEDIA,
-		                                                    WriteFreelyAPIabstract.convertArrayToJSON("id",
-		                                                                                              "token",
-		                                                                                              postsIDsAndTokens)))
-		       	   .execute()
-			       .body();
+		return super.parseResponse(this.endpoints
+		                               .movePostToCollection(cAlias,
+		                                                     RequestBody.create(WriteFreelyAPIabstract.APP_JSON_MEDIA,
+		                                                                        WriteFreelyAPIabstract.convertArrayToJSON("id",
+		                                                                                                                  "token",
+		                                                                                                                  postsIDsAndTokens)))
+		                           	   .execute());
 	}
 
 	public ResponseWrapper<ResponseWrapper<String>[]> pinPostToCollection(final String     cAlias,
 	                                                                      final String[][] postsIDsAndPositions) throws IOException {
-		return this.endpoints
-		           .pinPostToCollection(cAlias,
-		                                RequestBody.create(WriteFreelyAPIabstract.APP_JSON_MEDIA,
-		                                                   WriteFreelyAPIabstract.convertArrayToJSON("id",
-		                                                                                             "position",
-		                                                                                             postsIDsAndPositions)))
-		           .execute()
-		           .body();
+		return super.parseResponse(this.endpoints
+		                               .pinPostToCollection(cAlias,
+		                                                    RequestBody.create(WriteFreelyAPIabstract.APP_JSON_MEDIA,
+		                                                                       WriteFreelyAPIabstract.convertArrayToJSON("id",
+		                                                                                                                 "position",
+		                                                                                                                 postsIDsAndPositions)))
+		                               .execute());
 	}
 
 	public ResponseWrapper<ResponseWrapper<String>[]> unpinPostToCollection(final String     cAlias,
@@ -221,13 +217,12 @@ public class WriteFreelyAPIwithUser extends WriteFreelyAPIabstract {
 		                                    (String r,
 		                                     String pID) -> r + "{ \"id\": \"" + pID + "\" }, ");
 
-		return this.endpoints
-		           .pinPostToCollection(cAlias,
-		                                RequestBody.create(APP_JSON_MEDIA,
-		                                                   result.substring(0,
-		                                                                    result.length() - 2) + "]"))
-		           .execute()
-		           .body();
+		return super.parseResponse(this.endpoints
+		                               .pinPostToCollection(cAlias,
+		                                                    RequestBody.create(APP_JSON_MEDIA,
+		                                                                       result.substring(0,
+		                                                                                        result.length() - 2) + "]"))
+		                               .execute());
 	}
 
 	public boolean logout() throws IOException {
@@ -235,18 +230,18 @@ public class WriteFreelyAPIwithUser extends WriteFreelyAPIabstract {
 	}
 
 	public ResponseWrapper<User> retrieveUser() throws IOException {
-		return this.endpoints.retrieveUser().execute().body();
+		return super.parseResponse(this.endpoints.retrieveUser().execute());
 	}
 
 	public ResponseWrapper<PostReturned[]> retrieveUserPosts() throws IOException {
-		return this.endpoints.retrieveUserPosts().execute().body();
+		return super.parseResponse(this.endpoints.retrieveUserPosts().execute());
 	}
 
 	public ResponseWrapper<Collection[]> retrieveUserCollections() throws IOException {
-		return this.endpoints.retrieveUserCollections().execute().body();
+		return super.parseResponse(this.endpoints.retrieveUserCollections().execute());
 	}
 
 	public ResponseWrapper<Channel[]> retrieveUserChannels() throws IOException {
-		return this.endpoints.retrieveUserChannels().execute().body();
+		return super.parseResponse(this.endpoints.retrieveUserChannels().execute());
 	}
 }
