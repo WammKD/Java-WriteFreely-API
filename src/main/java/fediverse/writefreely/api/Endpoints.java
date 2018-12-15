@@ -36,7 +36,7 @@ interface Endpoints {
 	static final String POST_UNPIN_TO_COLLECTION = "api/collections/{collectionAlias}/unpin";
 
 	@POST(Endpoints.LOGIN)
-	Call<ResponseWrapper<Auth>>                            getToken();
+	Call<ResponseWrapper<Auth>>                            getToken(@Body RequestBody body);
 
 	@POST(Endpoints.POST_PUBLISH)
 	Call<ResponseWrapper<PostReturned>>                    publishPost(@Body PostCreated body);
