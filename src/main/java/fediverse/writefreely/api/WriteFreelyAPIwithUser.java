@@ -1,6 +1,7 @@
 package fediverse.writefreely.api;
 
 import com.google.gson.JsonParser;
+import fediverse.writefreely.api.model.Auth;
 import fediverse.writefreely.api.model.Channel;
 import fediverse.writefreely.api.model.Collection;
 import fediverse.writefreely.api.model.PostCreated;
@@ -85,24 +86,39 @@ public class WriteFreelyAPIwithUser extends WriteFreelyAPIabstract {
 
 	public WriteFreelyAPIwithUser(final String domain,
 	                              final String username,
-	                              final String passcode) throws MalformedURLException {
+	                              final String passcode) throws IOException,
+	                                                            MalformedURLException {
 		this.domain    = new URL(domain);
 		this.username  = username;
 		this.passcode  = passcode;
 		this.endpoints = super.generateEndpoints(this.domain.toString(),
 		                                         WriteFreelyAPIwithUser.LOG,
 		                                         this.generateAuthenticator());
+		this.login();
 	}
 
 	public WriteFreelyAPIwithUser(final URL    domain,
 	                              final String username,
-	                              final String passcode) {
+	                              final String passcode) throws IOException {
 		this.domain    = domain;
 		this.username  = username;
 		this.passcode  = passcode;
 		this.endpoints = super.generateEndpoints(this.domain.toString(),
 		                                         WriteFreelyAPIwithUser.LOG,
 		                                         this.generateAuthenticator());
+		this.login();
+	}
+
+	public ResponseWrapper<Auth> login() throws IOException {
+		final ResponseWrapper<Auth> result = super.parseResponse(this.endpoints
+		                                                             .getToken(RequestBody.create(WriteFreelyAPIabstract.APP_JSON_MEDIA,
+		                                                                                          "{ \"alias\": \"" + this.username + "\", " +
+		                                                                                          "   \"pass\": \"" + this.passcode + "\" }"))
+		                                                             .execute());
+
+		WriteFreelyAPIwithUser.super.authToken = result.getData().getAccessToken();
+
+		return result;
 	}
 
 	public ResponseWrapper<PostReturned> publishPost(final PostCreated post) throws IOException {
