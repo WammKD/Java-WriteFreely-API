@@ -1,10 +1,13 @@
 package fediverse.writefreely.api.model;
 
 import java.time.ZonedDateTime;
+import com.google.gson.annotations.SerializedName;
 
 public class User {
 	private final String        username;
+	@SerializedName("has_pass")
 	private final Boolean       hasPass;
+	@SerializedName("email")
 	private final String        eMail;
 	private final ZonedDateTime created;
 
